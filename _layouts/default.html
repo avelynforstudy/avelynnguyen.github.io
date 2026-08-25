@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="{{ site.locale | default: "en" }}">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#ffffff">
+
+    {% if jekyll.environment == 'production' %}
+    <meta name="google-site-verification" content="xxxxxxxxxxxxxxxxxxxxxx">
+    {% endif %}
+
+    <title>{% if page.title %}{{ page.title }} - {{ site.title | default: site.github.repository_name }}{% else %}{{ site.title | default: site.github.repository_name }}{% endif %}</title>
+
+    {% unless site.theme_color == nil %}
+    <meta name="msapplication-navbutton-color" content="{{ site.theme_color | default: '#ffc600' }}">
+    <meta name="apple-mobile-web-app-status-bar-layout" content="default">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="{{ site.title | default: site.github.repository_name }}">
+    {% endunless %}
+
+    <link rel="stylesheet" href="{{ '/css/style.css' | relative_url }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans">
+
+    {% if page.extra_css %}{{ page.extra_css }}{% endif %}
+  </head>
+
+  <body>
+    <header class="site-header">
+      <a href="{{ '/' | relative_url }}" class="logo">
+        {{ site.title | default: site.github.repository_name }}
+      </a>
+    </header>
+
+    <div class="content-wrapper">
+      <main class="page-content" role="main">
+        <div class="content">
+          {{ content }}
+        </div>
+      </main>
+    </div>
+
+    {% if site.footer_content %}
+    <footer class="site-footer">{{ site.footer_content | default: "Built with Jekyll" }}</footer>
+    {% endif %}
+  </body>
+</html>

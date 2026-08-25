@@ -1,0 +1,19 @@
+title: Avelyn Nguyen's Website
+description: Welcome to my personal website
+email: your.email@example.com
+baseurl: "/AvelynNguyen"
+url: "https://yourusername.github.io"
+
+# Theme settings
+theme: minima
+
+# Social media links
+social:
+  email: your.email@example.com
+  twitter: null
+  facebook: null
+  github: AvelynNguyen
+  
+# SEO settings
+show_downloads: false
+copyright: ""
