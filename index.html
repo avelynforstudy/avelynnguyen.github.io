@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Avelyn Nguyen — Finance &amp; Data Analyst</title>
-<meta name="description" content="Portfolio of Avelyn Nguyen — Junior Analyst at Bentley Investment Group, industry research, aspiring finance & data analyst." />
+<meta name="description" content="Portfolio of Avelyn Nguyen — Stock Analyst at Bentley Investment Group, finance consulting, data analysis, and industry research." />
 <link rel="icon" href="data:,">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,13 +17,16 @@
 
 <header class="nav" id="top">
   <div class="nav-inner">
-    <a href="#top" class="nav-brand">Avelyn Nguyen</a>
+    <a href="#top" class="nav-brand">
+      <img src="assets/images/logo.png" alt="AN logo" class="nav-logo">
+      <span>Avelyn Nguyen</span>
+    </a>
     <nav class="nav-links">
-      <a href="#about">About</a>
-      <a href="#experience">Experience</a>
-      <a href="#projects">Projects</a>
-      <a href="#skills">Skills</a>
-      <a href="#contact">Contact</a>
+      <a href="#about" data-section="about">About</a>
+      <a href="#experience" data-section="experience">Experience</a>
+      <a href="#projects" data-section="projects">Projects</a>
+      <a href="#skills" data-section="skills">Skills</a>
+      <a href="#contact" data-section="contact">Contact</a>
     </nav>
     <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
       <span></span><span></span><span></span>
@@ -35,14 +38,45 @@
 
   <!-- HERO -->
   <section class="hero">
+    <div class="hero-dots" aria-hidden="true"></div>
     <div class="hero-inner">
-      <p class="eyebrow">Portfolio</p>
-      <h1>Avelyn Nguyen</h1>
-      <p class="hero-role">Junior Analyst at Bentley Investment Group · Industry Research · Aspiring Finance &amp; Data Analyst</p>
-      <p class="hero-sub">Bentley University · B.S. Finance (Corporate Finance) &amp; Computer Information Systems · GPA 3.88</p>
-      <div class="hero-cta">
-        <a href="#projects" class="btn btn-primary">View Projects</a>
-        <a href="assets/Anh_Nguyen_Resume.pdf" class="btn btn-ghost" download>Download Résumé</a>
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">Portfolio</p>
+          <h1>Avelyn Nguyen</h1>
+          <p class="hero-role">Stock Analyst · Finance Consulting · Data Analysis &amp; Industry Research</p>
+          <p class="hero-sub">Bentley University · B.S. Finance (Corporate Finance) &amp; Computer Information Systems</p>
+          <div class="hero-cta">
+            <a href="#projects" class="btn btn-primary">View Projects</a>
+            <a href="assets/Anh_Nguyen_Resume.pdf" class="btn btn-ghost" download>Download Résumé</a>
+          </div>
+        </div>
+        <div class="hero-photo-wrap">
+          <div class="hero-photo-ring"></div>
+          <div class="hero-photo">
+            <img src="assets/images/headshot.jpg" alt="Avelyn Nguyen" onerror="this.parentElement.classList.add('no-photo'); this.remove();">
+            <span class="hero-photo-fallback">AN</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-stats">
+        <div class="stat-circle">
+          <span class="stat-value">3.88</span>
+          <span class="stat-label">GPA · President's List</span>
+        </div>
+        <div class="stat-circle">
+          <span class="stat-value">6</span>
+          <span class="stat-label">Projects &amp; Case Comps</span>
+        </div>
+        <div class="stat-circle">
+          <span class="stat-value">3</span>
+          <span class="stat-label">Competition Awards</span>
+        </div>
+        <div class="stat-circle">
+          <span class="stat-value">2029</span>
+          <span class="stat-label">Expected Graduation</span>
+        </div>
       </div>
     </div>
   </section>
