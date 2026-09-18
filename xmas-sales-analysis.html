@@ -301,6 +301,64 @@
     align-items: center;
   }
 
+  /* Appendix — real screenshots, grouped by question */
+  .appendix-section { background: var(--paper-alt); }
+
+  .appendix-intro {
+    font-size: 0.98rem;
+    line-height: 1.7;
+    color: var(--muted);
+    max-width: 640px;
+    margin: 0 0 44px;
+  }
+
+  .appendix-group { margin-bottom: 40px; }
+
+  .appendix-group-label {
+    font-family: var(--serif);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--navy);
+    margin: 0 0 14px;
+  }
+
+  .shot-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 12px;
+  }
+
+  .shot-thumb {
+    display: block;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    overflow: hidden;
+    background: var(--paper);
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .shot-thumb:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(15, 31, 56, 0.10);
+  }
+
+  .shot-thumb img {
+    width: 100%;
+    height: 130px;
+    object-fit: cover;
+    object-position: top;
+    display: block;
+  }
+
+  .shot-thumb-caption {
+    display: block;
+    font-size: 0.72rem;
+    color: var(--muted);
+    padding: 8px 10px;
+    border-top: 1px solid var(--line);
+  }
+
   @media (max-width: 720px) {
     .fact-band { grid-template-columns: repeat(2, 1fr); }
     .fact-band-item:nth-child(2) { border-right: none; }
@@ -760,6 +818,107 @@ s <span class="kw">AS</span> (
               <tr><td>Wearable Tech</td><td>$1.06M</td><td>3.8%</td><td>76.73%</td></tr>
             </tbody>
           </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- APPENDIX -->
+  <section class="section appendix-section" id="appendix">
+    <div class="section-inner">
+      <p class="theme-heading"><span class="plain">Appendix —</span> <span class="accent">every query, unedited</span></p>
+      <p class="appendix-intro">The code and results above are typed out for readability. These are the actual
+        SQL Server Management Studio screenshots each one was run from — click any thumbnail to view it full
+        size.</p>
+
+      <div class="appendix-group">
+        <p class="appendix-group-label">Question 1 — Revenue, quantity, cost &amp; profit by season</p>
+        <div class="shot-grid">
+          <a class="shot-thumb" href="assets/images/sql-screenshots/q1-code-1.png" target="_blank"><img src="assets/images/sql-screenshots/q1-code-1.png" alt="Question 1 SQL — CTE setup"><span class="shot-thumb-caption">Query (CTE setup)</span></a>
+          <a class="shot-thumb" href="assets/images/sql-screenshots/q1-code-2.png" target="_blank"><img src="assets/images/sql-screenshots/q1-code-2.png" alt="Question 1 SQL — final select"><span class="shot-thumb-caption">Query (final select)</span></a>
+          <a class="shot-thumb" href="assets/images/sql-screenshots/q1-results.png" target="_blank"><img src="assets/images/sql-screenshots/q1-results.png" alt="Question 1 results"><span class="shot-thumb-caption">Results</span></a>
+        </div>
+      </div>
+
+      <div class="appendix-group">
+        <p class="appendix-group-label">Question 2 — YoY growth vs. previous season</p>
+        <div class="shot-grid">
+          <a class="shot-thumb" href="assets/images/sql-screenshots/q2-code-1.png" target="_blank"><img src="assets/images/sql-screenshots/q2-code-1.png" alt="Question 2 SQL — view creation"><span class="shot-thumb-caption">Query (view creation)</span></a>
+          <a class="shot-thumb" href="assets/images/sql-screenshots/q2-code-2.png" target="_blank"><img src="assets/images/sql-screenshots/q2-code-2.png" alt="Question 2 SQL — self-join"><span class="shot-thumb-caption">Query (self-join)</span></a>
+          <a class="shot-thumb" href="assets/images/sql-screenshots/q2-results.png" target="_blank"><img src="assets/images/sql-screenshots/q2-results.png" alt="Question 2 results"><span class="shot-thumb-caption">Results</span></a>
+        </div>
+      </div>
+
+      <div class="appendix-group">
+        <p class="appendix-group-label">Question 3 — Revenue growth across every season</p>
+        <div class="shot-grid">
+          <a class="shot-thumb" href="assets/images/sql-screenshots/q3-code.png" target="_blank"><img src="assets/images/sql-screenshots/q3-code.png" alt="Question 3 SQL"><span class="shot-thumb-caption">Query</span></a>
+          <a class="shot-thumb" href="assets/images/sql-screenshots/q3-results.png" target="_blank"><img src="assets/images/sql-screenshots/q3-results.png" alt="Question 3 results"><span class="shot-thumb-caption">Results</span></a>
+        </div>
+      </div>
+
+      <div class="appendix-group">
+        <p class="appendix-group-label">Question 4 — Revenue share by purchase channel</p>
+        <div class="shot-grid">
+          <a class="shot-thumb" href="assets/images/sql-screenshots/q4-code.png" target="_blank"><img src="assets/images/sql-screenshots/q4-code.png" alt="Question 4 SQL"><span class="shot-thumb-caption">Query</span></a>
+          <a class="shot-thumb" href="assets/images/sql-screenshots/q4-results.png" target="_blank"><img src="assets/images/sql-screenshots/q4-results.png" alt="Question 4 results"><span class="shot-thumb-caption">Results</span></a>
+        </div>
+      </div>
+
+      <div class="appendix-group">
+        <p class="appendix-group-label">Question 5 — Revenue by country and city</p>
+        <div class="shot-grid">
+          <a class="shot-thumb" href="assets/images/sql-screenshots/q5-code.png" target="_blank"><img src="assets/images/sql-screenshots/q5-code.png" alt="Question 5 SQL"><span class="shot-thumb-caption">Query</span></a>
+          <a class="shot-thumb" href="assets/images/sql-screenshots/q5-results-country.png" target="_blank"><img src="assets/images/sql-screenshots/q5-results-country.png" alt="Question 5 results by country"><span class="shot-thumb-caption">Results — by country</span></a>
+          <a class="shot-thumb" href="assets/images/sql-screenshots/q5-results-city.png" target="_blank"><img src="assets/images/sql-screenshots/q5-results-city.png" alt="Question 5 results by city"><span class="shot-thumb-caption">Results — by city</span></a>
+        </div>
+      </div>
+
+      <div class="appendix-group">
+        <p class="appendix-group-label">Question 6 — Growth ranking by country, latest season</p>
+        <div class="shot-grid">
+          <a class="shot-thumb" href="assets/images/sql-screenshots/q6-code.png" target="_blank"><img src="assets/images/sql-screenshots/q6-code.png" alt="Question 6 SQL"><span class="shot-thumb-caption">Query</span></a>
+          <a class="shot-thumb" href="assets/images/sql-screenshots/q6-results.png" target="_blank"><img src="assets/images/sql-screenshots/q6-results.png" alt="Question 6 results"><span class="shot-thumb-caption">Results</span></a>
+        </div>
+      </div>
+
+      <div class="appendix-group">
+        <p class="appendix-group-label">Question 7 — Revenue share by age, gender &amp; purchase method</p>
+        <div class="shot-grid">
+          <a class="shot-thumb" href="assets/images/sql-screenshots/q7-code.png" target="_blank"><img src="assets/images/sql-screenshots/q7-code.png" alt="Question 7 SQL"><span class="shot-thumb-caption">Query</span></a>
+          <a class="shot-thumb" href="assets/images/sql-screenshots/q7-results-age.png" target="_blank"><img src="assets/images/sql-screenshots/q7-results-age.png" alt="Question 7 results by age"><span class="shot-thumb-caption">Results — by age</span></a>
+          <a class="shot-thumb" href="assets/images/sql-screenshots/q7-results-gender.png" target="_blank"><img src="assets/images/sql-screenshots/q7-results-gender.png" alt="Question 7 results by gender"><span class="shot-thumb-caption">Results — by gender</span></a>
+          <a class="shot-thumb" href="assets/images/sql-screenshots/q7-results-purchase.png" target="_blank"><img src="assets/images/sql-screenshots/q7-results-purchase.png" alt="Question 7 results by purchase type"><span class="shot-thumb-caption">Results — by channel</span></a>
+        </div>
+      </div>
+
+      <div class="appendix-group">
+        <p class="appendix-group-label">Question 8 — Channel &amp; payment mix within each age group</p>
+        <div class="shot-grid">
+          <a class="shot-thumb" href="assets/images/sql-screenshots/q8-code-1.png" target="_blank"><img src="assets/images/sql-screenshots/q8-code-1.png" alt="Question 8 SQL — purchase type by age"><span class="shot-thumb-caption">Query (channel by age)</span></a>
+          <a class="shot-thumb" href="assets/images/sql-screenshots/q8-code-2.png" target="_blank"><img src="assets/images/sql-screenshots/q8-code-2.png" alt="Question 8 SQL — payment method by age"><span class="shot-thumb-caption">Query (payment by age)</span></a>
+          <a class="shot-thumb" href="assets/images/sql-screenshots/q8-results-purchase.png" target="_blank"><img src="assets/images/sql-screenshots/q8-results-purchase.png" alt="Question 8 results — channel by age"><span class="shot-thumb-caption">Results — channel by age</span></a>
+          <a class="shot-thumb" href="assets/images/sql-screenshots/q8-results-payment.png" target="_blank"><img src="assets/images/sql-screenshots/q8-results-payment.png" alt="Question 8 results — payment by age"><span class="shot-thumb-caption">Results — payment by age</span></a>
+        </div>
+      </div>
+
+      <div class="appendix-group">
+        <p class="appendix-group-label">Question 9 — Sales, profit ratio &amp; avg. unit price by category</p>
+        <div class="shot-grid">
+          <a class="shot-thumb" href="assets/images/sql-screenshots/q9-code-category.png" target="_blank"><img src="assets/images/sql-screenshots/q9-code-category.png" alt="Question 9 SQL — by category"><span class="shot-thumb-caption">Query (by category)</span></a>
+          <a class="shot-thumb" href="assets/images/sql-screenshots/q9-code-product.png" target="_blank"><img src="assets/images/sql-screenshots/q9-code-product.png" alt="Question 9 SQL — by product"><span class="shot-thumb-caption">Query (by product)</span></a>
+          <a class="shot-thumb" href="assets/images/sql-screenshots/q9-results-category.png" target="_blank"><img src="assets/images/sql-screenshots/q9-results-category.png" alt="Question 9 results by category"><span class="shot-thumb-caption">Results — by category</span></a>
+          <a class="shot-thumb" href="assets/images/sql-screenshots/q9-results-product.png" target="_blank"><img src="assets/images/sql-screenshots/q9-results-product.png" alt="Question 9 results by product"><span class="shot-thumb-caption">Results — by product</span></a>
+        </div>
+      </div>
+
+      <div class="appendix-group">
+        <p class="appendix-group-label">Question 10 — Weekday &amp; hourly purchase timing</p>
+        <div class="shot-grid">
+          <a class="shot-thumb" href="assets/images/sql-screenshots/q10-code.png" target="_blank"><img src="assets/images/sql-screenshots/q10-code.png" alt="Question 10 SQL"><span class="shot-thumb-caption">Query</span></a>
+          <a class="shot-thumb" href="assets/images/sql-screenshots/q10-results-weekday.png" target="_blank"><img src="assets/images/sql-screenshots/q10-results-weekday.png" alt="Question 10 results by weekday and gender"><span class="shot-thumb-caption">Results — weekday &amp; gender</span></a>
+          <a class="shot-thumb" href="assets/images/sql-screenshots/q10-results-hour-1.png" target="_blank"><img src="assets/images/sql-screenshots/q10-results-hour-1.png" alt="Question 10 results by hour, part 1"><span class="shot-thumb-caption">Results — by hour (1/2)</span></a>
+          <a class="shot-thumb" href="assets/images/sql-screenshots/q10-results-hour-2.png" target="_blank"><img src="assets/images/sql-screenshots/q10-results-hour-2.png" alt="Question 10 results by hour, part 2"><span class="shot-thumb-caption">Results — by hour (2/2)</span></a>
         </div>
       </div>
     </div>
