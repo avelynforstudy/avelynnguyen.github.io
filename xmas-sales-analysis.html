@@ -343,65 +343,32 @@
     align-items: center;
   }
 
-  /* Fixed vertical table of contents — right rail.
-     Collapsed by default to a small vertical "Sections" label; hovering near the
-     edge reveals the full list. Hidden below ~1240px where it would crowd content. */
-  .case-toc-wrap {
+  /* Fixed vertical table of contents — right rail, always visible as a card
+     (there's ample empty space beside the hero and every section for it to live in).
+     Hidden below ~1240px where it would crowd content. */
+  .case-toc {
     position: fixed;
-    right: 0;
+    right: 32px;
     top: 50%;
     transform: translateY(-50%);
     z-index: 40;
     display: flex;
-    align-items: center;
-    padding: 20px 8px 20px 36px;
-  }
-
-  .case-toc-label {
-    writing-mode: vertical-rl;
-    transform: rotate(180deg);
-    font-size: 0.62rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--muted);
-    font-weight: 700;
-    padding: 6px 3px;
-    opacity: 1;
-    transition: opacity 0.25s ease;
-  }
-
-  .case-toc {
-    position: absolute;
-    right: 22px;
-    top: 50%;
-    transform: translateY(-50%) translateX(6px);
-    display: flex;
     flex-direction: column;
-    gap: 1px;
-    background: var(--paper);
+    gap: 6px;
+    background: #fff;
     border: 1px solid var(--line);
-    border-radius: 10px;
-    padding: 10px 16px 10px 12px;
-    box-shadow: 0 10px 28px rgba(15, 31, 56, 0.10);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.2s ease, transform 0.2s ease;
-  }
-
-  .case-toc-wrap:hover .case-toc-label { opacity: 0; }
-  .case-toc-wrap:hover .case-toc {
-    opacity: 1;
-    pointer-events: auto;
-    transform: translateY(-50%) translateX(0);
+    border-radius: 16px;
+    padding: 18px 22px;
+    box-shadow: 0 16px 40px rgba(15, 31, 56, 0.12);
   }
 
   .case-toc a {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 12px;
     text-decoration: none;
-    padding: 5px 0;
-    font-size: 0.68rem;
+    padding: 4px 0;
+    font-size: 0.8rem;
     font-weight: 500;
     color: var(--muted);
     white-space: nowrap;
@@ -410,10 +377,10 @@
 
   .case-toc a::before {
     content: '';
-    width: 6px;
-    height: 6px;
+    width: 9px;
+    height: 9px;
     border-radius: 50%;
-    background: var(--paper);
+    background: #fff;
     border: 1.5px solid var(--line);
     flex-shrink: 0;
     transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
@@ -426,11 +393,11 @@
   .case-toc a.active::before {
     background: var(--gold);
     border-color: var(--gold);
-    transform: scale(1.25);
+    transform: scale(1.2);
   }
 
   @media (max-width: 1240px) {
-    .case-toc-wrap { display: none; }
+    .case-toc { display: none; }
   }
 
   /* Appendix — real screenshots, grouped by question */
@@ -527,17 +494,14 @@
   </div>
 </header>
 
-<div class="case-toc-wrap">
-  <span class="case-toc-label">Sections</span>
-  <nav class="case-toc" id="caseToc" aria-label="Section navigation">
-    <a href="#key-findings" data-toc="key-findings">Key Findings</a>
-    <a href="#revenue-trends" data-toc="revenue-trends">Revenue &amp; Growth Trends</a>
-    <a href="#geography" data-toc="geography">Geography</a>
-    <a href="#customer-behavior" data-toc="customer-behavior">Customer &amp; Channel Behavior</a>
-    <a href="#product-performance" data-toc="product-performance">Product Performance</a>
-    <a href="#appendix" data-toc="appendix">Appendix</a>
-  </nav>
-</div>
+<nav class="case-toc" id="caseToc" aria-label="Section navigation">
+  <a href="#key-findings" data-toc="key-findings">Key Findings</a>
+  <a href="#revenue-trends" data-toc="revenue-trends">Revenue &amp; Growth Trends</a>
+  <a href="#geography" data-toc="geography">Geography</a>
+  <a href="#customer-behavior" data-toc="customer-behavior">Customer &amp; Channel Behavior</a>
+  <a href="#product-performance" data-toc="product-performance">Product Performance</a>
+  <a href="#appendix" data-toc="appendix">Appendix</a>
+</nav>
 
 <main>
 
@@ -595,18 +559,6 @@
             revenue lead is a volume story, not a margin story.</p>
           <p class="fa-text fa-action">Double down on what already sells: scale Toys and Clothing further
             instead of chasing "higher-margin" categories.</p>
-        </div>
-        <div class="fa-row">
-          <p class="fa-text">Orders cluster tightly between 9 AM and 6 PM, peak at 3 PM, then drop sharply
-            after 7 PM.</p>
-          <p class="fa-text fa-action">Concentrate staffing and promotions in that 9-to-6 window and pull back
-            on after-hours spend.</p>
-        </div>
-        <div class="fa-row">
-          <p class="fa-text">Female shoppers peak on Monday; male shoppers peak on Friday — a real
-            day-of-week split, not noise.</p>
-          <p class="fa-text fa-action">Time gender-targeted campaigns to match: female-focused Monday,
-            male-focused Friday.</p>
         </div>
         <div class="fa-row">
           <p class="fa-text">Sweden leads total revenue ($3.78M) but actually declined -6.2% last season,
