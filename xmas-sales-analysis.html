@@ -24,11 +24,11 @@
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    font-size: 0.85rem;
+    font-size: 0.78rem;
     font-weight: 600;
     color: var(--muted);
     text-decoration: none;
-    padding: 8px 16px;
+    padding: 7px 14px;
     border: 1px solid var(--line);
     border-radius: 999px;
     transition: border-color 0.2s ease, color 0.2s ease;
@@ -37,7 +37,7 @@
 
   .case-crumb {
     margin: 20px 0 0;
-    font-size: 0.85rem;
+    font-size: 0.78rem;
     color: var(--muted);
   }
   .case-crumb span { color: var(--navy); font-weight: 600; }
@@ -72,8 +72,8 @@
   }
 
   .case-hero-sub {
-    font-size: 1.02rem;
-    line-height: 1.7;
+    font-size: 0.9rem;
+    line-height: 1.65;
     color: var(--ink);
     max-width: 640px;
     margin: 0;
@@ -127,8 +127,8 @@
 
   .fa-text {
     margin: 0;
-    font-size: 0.92rem;
-    line-height: 1.62;
+    font-size: 0.84rem;
+    line-height: 1.58;
     color: var(--ink);
   }
 
@@ -151,11 +151,11 @@
   .theme-heading .accent { font-style: italic; font-weight: 600; color: var(--gold); }
 
   .theme-takeaway {
-    font-size: 1.02rem;
-    line-height: 1.7;
+    font-size: 0.9rem;
+    line-height: 1.6;
     color: var(--ink);
     max-width: 640px;
-    margin: 0 0 40px;
+    margin: 0 0 32px;
     font-weight: 500;
   }
 
@@ -171,7 +171,7 @@
   .section.alt .chart-card { background: var(--paper); }
 
   .chart-label {
-    font-size: 0.7rem;
+    font-size: 0.65rem;
     text-transform: uppercase;
     letter-spacing: 0.08em;
     color: var(--muted);
@@ -191,10 +191,10 @@
   .bar-rows { display: flex; flex-direction: column; gap: 6px; }
   .bar-rows.cols-2 { display: grid; grid-auto-flow: column; grid-template-columns: repeat(2, 1fr); gap: 5px 20px; }
   .bar-row { display: grid; grid-template-columns: 96px 1fr 46px; align-items: center; gap: 8px; }
-  .bar-row-label { font-size: 0.76rem; color: var(--ink); font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .bar-row-label { font-size: 0.7rem; color: var(--ink); font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .bar-track { height: 6px; background: var(--paper-alt); border-radius: 999px; overflow: hidden; }
   .bar-fill { height: 100%; background: var(--gold-light); border-radius: 999px; }
-  .bar-row-value { font-size: 0.74rem; color: var(--muted); text-align: right; font-variant-numeric: tabular-nums; }
+  .bar-row-value { font-size: 0.68rem; color: var(--muted); text-align: right; font-variant-numeric: tabular-nums; }
   .bar-row.is-lead .bar-fill { background: var(--gold); }
   .bar-row.is-lead .bar-row-label { color: var(--navy); font-weight: 700; }
 
@@ -202,7 +202,7 @@
   .diverge-rows { display: flex; flex-direction: column; gap: 6px; }
   .diverge-rows.cols-2 { display: grid; grid-auto-flow: column; grid-template-columns: repeat(2, 1fr); gap: 5px 20px; }
   .diverge-row { display: grid; grid-template-columns: 84px 1fr 42px; align-items: center; gap: 8px; }
-  .diverge-row-label { font-size: 0.76rem; color: var(--ink); font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .diverge-row-label { font-size: 0.7rem; color: var(--ink); font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .diverge-track { position: relative; height: 6px; background: transparent; }
   .diverge-mid { position: absolute; left: 50%; top: -3px; bottom: -3px; width: 1px; background: var(--line); }
   .diverge-fill {
@@ -210,7 +210,7 @@
   }
   .diverge-fill.pos { left: 50%; background: var(--gold); }
   .diverge-fill.neg { right: 50%; background: var(--navy); opacity: 0.75; }
-  .diverge-row-value { font-size: 0.74rem; text-align: right; font-variant-numeric: tabular-nums; }
+  .diverge-row-value { font-size: 0.68rem; text-align: right; font-variant-numeric: tabular-nums; }
   .diverge-row-value.pos { color: var(--gold); font-weight: 600; }
   .diverge-row-value.neg { color: var(--navy); font-weight: 600; }
 
@@ -233,7 +233,7 @@
   .insight-item:last-child { border-bottom: none; }
 
   .insight-q {
-    font-size: 0.75rem;
+    font-size: 0.68rem;
     text-transform: uppercase;
     letter-spacing: 0.06em;
     color: var(--gold);
@@ -242,12 +242,20 @@
   }
 
   .insight-text {
-    font-size: 0.98rem;
-    line-height: 1.65;
+    font-size: 0.86rem;
+    line-height: 1.6;
     color: var(--ink);
-    margin: 0 0 14px;
+    margin: 0 0 12px;
     max-width: 680px;
   }
+
+  .insight-item.has-table {
+    display: grid;
+    grid-template-columns: 1fr 250px;
+    gap: 24px;
+    align-items: start;
+  }
+  .insight-item.has-table .result-table { margin-top: 26px; }
 
   details.sql-toggle { margin-top: 4px; }
   details.sql-toggle summary {
@@ -256,7 +264,7 @@
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    font-size: 0.85rem;
+    font-size: 0.76rem;
     font-weight: 600;
     color: var(--navy);
     border-bottom: 1.5px solid var(--gold-light);
@@ -265,22 +273,22 @@
   }
   details.sql-toggle summary::-webkit-details-marker { display: none; }
   details.sql-toggle summary:hover { color: var(--gold); }
-  details.sql-toggle summary .chevron { transition: transform 0.2s ease; font-size: 0.7rem; }
+  details.sql-toggle summary .chevron { transition: transform 0.2s ease; font-size: 0.65rem; }
   details.sql-toggle[open] summary .chevron { transform: rotate(90deg); }
 
   .sql-block {
-    margin-top: 16px;
+    margin-top: 14px;
     background: var(--navy-deep);
     border-left: 3px solid var(--gold);
     border-radius: 4px 10px 10px 4px;
-    padding: 14px 18px;
+    padding: 11px 15px;
     overflow-x: auto;
   }
   .sql-block pre {
     margin: 0;
     font-family: 'JetBrains Mono', 'Consolas', monospace;
-    font-size: 0.74rem;
-    line-height: 1.5;
+    font-size: 0.65rem;
+    line-height: 1.45;
     color: #dce3f0;
     white-space: pre;
   }
@@ -292,16 +300,16 @@
     display: inline-flex;
     align-items: center;
     gap: 5px;
-    font-size: 0.72rem;
+    font-size: 0.66rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.04em;
     color: var(--gold);
     background: rgba(185, 141, 62, 0.10);
-    padding: 5px 12px;
+    padding: 4px 11px;
     border-radius: 999px;
     text-decoration: none;
-    margin: 10px 0 0;
+    margin: 8px 0 0;
     width: fit-content;
   }
   .appendix-jump:hover { background: rgba(185, 141, 62, 0.2); }
@@ -310,15 +318,15 @@
     margin-top: 16px;
     width: 100%;
     border-collapse: collapse;
-    font-size: 0.85rem;
+    font-size: 0.72rem;
   }
   .result-table th, .result-table td {
     text-align: left;
-    padding: 6px 10px;
+    padding: 5px 8px;
     border-bottom: 1px solid var(--line);
   }
   .result-table th {
-    font-size: 0.72rem;
+    font-size: 0.62rem;
     text-transform: uppercase;
     letter-spacing: 0.04em;
     color: var(--muted);
@@ -335,25 +343,65 @@
     align-items: center;
   }
 
-  /* Fixed vertical table of contents — right rail, hidden below ~1200px where it would crowd content */
-  .case-toc {
+  /* Fixed vertical table of contents — right rail.
+     Collapsed by default to a small vertical "Sections" label; hovering near the
+     edge reveals the full list. Hidden below ~1240px where it would crowd content. */
+  .case-toc-wrap {
     position: fixed;
-    right: 28px;
+    right: 0;
     top: 50%;
     transform: translateY(-50%);
     z-index: 40;
     display: flex;
+    align-items: center;
+    padding: 20px 8px 20px 36px;
+  }
+
+  .case-toc-label {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-size: 0.62rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 700;
+    padding: 6px 3px;
+    opacity: 1;
+    transition: opacity 0.25s ease;
+  }
+
+  .case-toc {
+    position: absolute;
+    right: 22px;
+    top: 50%;
+    transform: translateY(-50%) translateX(6px);
+    display: flex;
     flex-direction: column;
-    gap: 3px;
+    gap: 1px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 10px 16px 10px 12px;
+    box-shadow: 0 10px 28px rgba(15, 31, 56, 0.10);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+
+  .case-toc-wrap:hover .case-toc-label { opacity: 0; }
+  .case-toc-wrap:hover .case-toc {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(-50%) translateX(0);
   }
 
   .case-toc a {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
     text-decoration: none;
-    padding: 6px 0;
-    font-size: 0.76rem;
+    padding: 5px 0;
+    font-size: 0.68rem;
     font-weight: 500;
     color: var(--muted);
     white-space: nowrap;
@@ -362,8 +410,8 @@
 
   .case-toc a::before {
     content: '';
-    width: 7px;
-    height: 7px;
+    width: 6px;
+    height: 6px;
     border-radius: 50%;
     background: var(--paper);
     border: 1.5px solid var(--line);
@@ -382,18 +430,18 @@
   }
 
   @media (max-width: 1240px) {
-    .case-toc { display: none; }
+    .case-toc-wrap { display: none; }
   }
 
   /* Appendix — real screenshots, grouped by question */
   .appendix-section { background: var(--paper-alt); }
 
   .appendix-intro {
-    font-size: 0.98rem;
-    line-height: 1.7;
+    font-size: 0.86rem;
+    line-height: 1.6;
     color: var(--muted);
     max-width: 640px;
-    margin: 0 0 44px;
+    margin: 0 0 40px;
   }
 
   .appendix-group { margin-bottom: 40px; scroll-margin-top: 90px; }
@@ -402,10 +450,10 @@
 
   .appendix-group-label {
     font-family: var(--serif);
-    font-size: 1.05rem;
+    font-size: 0.92rem;
     font-weight: 600;
     color: var(--navy);
-    margin: 0 0 14px;
+    margin: 0 0 12px;
   }
 
   .shot-grid {
@@ -439,10 +487,14 @@
 
   .shot-thumb-caption {
     display: block;
-    font-size: 0.72rem;
+    font-size: 0.66rem;
     color: var(--muted);
-    padding: 8px 10px;
+    padding: 7px 9px;
     border-top: 1px solid var(--line);
+  }
+
+  @media (max-width: 900px) {
+    .insight-item.has-table { grid-template-columns: 1fr; }
   }
 
   @media (max-width: 720px) {
@@ -475,14 +527,17 @@
   </div>
 </header>
 
-<nav class="case-toc" id="caseToc" aria-label="Section navigation">
-  <a href="#key-findings" data-toc="key-findings">Key Findings</a>
-  <a href="#revenue-trends" data-toc="revenue-trends">Revenue &amp; Growth Trends</a>
-  <a href="#geography" data-toc="geography">Geography</a>
-  <a href="#customer-behavior" data-toc="customer-behavior">Customer &amp; Channel Behavior</a>
-  <a href="#product-performance" data-toc="product-performance">Product Performance</a>
-  <a href="#appendix" data-toc="appendix">Appendix</a>
-</nav>
+<div class="case-toc-wrap">
+  <span class="case-toc-label">Sections</span>
+  <nav class="case-toc" id="caseToc" aria-label="Section navigation">
+    <a href="#key-findings" data-toc="key-findings">Key Findings</a>
+    <a href="#revenue-trends" data-toc="revenue-trends">Revenue &amp; Growth Trends</a>
+    <a href="#geography" data-toc="geography">Geography</a>
+    <a href="#customer-behavior" data-toc="customer-behavior">Customer &amp; Channel Behavior</a>
+    <a href="#product-performance" data-toc="product-performance">Product Performance</a>
+    <a href="#appendix" data-toc="appendix">Appendix</a>
+  </nav>
+</div>
 
 <main>
 
@@ -501,19 +556,19 @@
     <div class="fact-band">
       <div class="fact-band-item">
         <span class="fact-label">Tools</span>
-        <span class="fact-value" style="font-size:0.92rem;">SQL Server — CTEs, self-joins, views</span>
+        <span class="fact-value" style="font-size:0.82rem;">SQL Server — CTEs, self-joins, views</span>
       </div>
       <div class="fact-band-item">
         <span class="fact-label">Scope</span>
-        <span class="fact-value" style="font-size:0.92rem;">4 seasons (2018–2021) · 10 countries</span>
+        <span class="fact-value" style="font-size:0.82rem;">4 seasons (2018–2021) · 10 countries</span>
       </div>
       <div class="fact-band-item">
         <span class="fact-label">Dimensions</span>
-        <span class="fact-value" style="font-size:0.92rem;">Geography, channel, product, age &amp; gender</span>
+        <span class="fact-value" style="font-size:0.82rem;">Geography, channel, product, age &amp; gender</span>
       </div>
       <div class="fact-band-item">
         <span class="fact-label">Goal</span>
-        <span class="fact-value" style="font-size:0.92rem;">Marketing, staffing &amp; channel decisions</span>
+        <span class="fact-value" style="font-size:0.82rem;">Marketing, staffing &amp; channel decisions</span>
       </div>
     </div>
   </section>
@@ -600,7 +655,8 @@
       </div>
 
       <div class="insight-list">
-        <div class="insight-item">
+        <div class="insight-item has-table">
+          <div class="insight-main">
           <p class="insight-q">Question 1 — Revenue, quantity, cost &amp; profit per season</p>
           <p class="insight-text">Revenue dipped to $6.95M in 2020 (likely pandemic disruption) before
             recovering to $7.09M in 2021 — but profit margin held rock-steady at ~77% through every season,
@@ -623,6 +679,7 @@
     <span class="fn">ROUND</span>(profit / <span class="fn">POWER</span>(10,6), 2) <span class="kw">AS</span> profit
 <span class="kw">FROM</span> s</pre></div>
           </details>
+          </div>
           <table class="result-table">
             <thead><tr><th>Season</th><th>Sales</th><th>Cost</th><th>Profit</th><th>Margin</th></tr></thead>
             <tbody>
@@ -634,7 +691,8 @@
           </table>
         </div>
 
-        <div class="insight-item">
+        <div class="insight-item has-table">
+          <div class="insight-main">
           <p class="insight-q">Question 2 &amp; 3 — Season-over-season growth</p>
           <p class="insight-text">Growth swung from +1.5% (2019) to -3.2% (2020) and back to +1.9% (2021) — a
             clear dip-and-recovery pattern. In the most recent season, revenue (+1.9%) and quantity (+2.1%)
@@ -655,6 +713,7 @@
 <span class="kw">FROM</span> s
 <span class="kw">JOIN</span> s prev <span class="kw">ON</span> s.xmas_year = prev.xmas_year + 1</pre></div>
           </details>
+          </div>
           <table class="result-table">
             <thead><tr><th>Season</th><th>Revenue growth</th><th>Quantity growth</th><th>Profit growth</th></tr></thead>
             <tbody>
@@ -804,7 +863,8 @@
           </div>
         </div>
 
-        <div class="insight-item">
+        <div class="insight-item has-table">
+          <div class="insight-main">
           <p class="insight-q">Question 8 — Channel &amp; payment mix within each age group</p>
           <p class="insight-text">Teens (12–17) and adults (18+) are nearly indistinguishable in both channel
             and payment behavior (58.7% vs. 58.3% in-store, 23.6% vs. 23.1% PayPal). The real split isn't
@@ -827,6 +887,7 @@ s <span class="kw">AS</span> (
 <span class="kw">FROM</span> s
 <span class="kw">LEFT JOIN</span> t <span class="kw">ON</span> s.customer_age_tange = t.customer_age_tange</pre></div>
           </details>
+          </div>
           <table class="result-table">
             <thead><tr><th>Age group</th><th>In-store</th><th>Online</th><th>Xmas Market</th></tr></thead>
             <tbody>
@@ -887,7 +948,8 @@ s <span class="kw">AS</span> (
       </div>
 
       <div class="insight-list">
-        <div class="insight-item">
+        <div class="insight-item has-table">
+          <div class="insight-main">
           <p class="insight-q">Question 9 — Sales, profit ratio &amp; avg. unit price by category</p>
           <p class="insight-text">Toys leads by a wide margin (15.8% of total revenue, nearly 40% ahead of the
             next category), but profit ratio barely moves across all 13 categories (76.7–77.0%). Profitability
@@ -911,6 +973,7 @@ s <span class="kw">AS</span> (
 <span class="kw">FROM</span> s
 <span class="kw">ORDER BY</span> product_category</pre></div>
           </details>
+          </div>
           <table class="result-table">
             <thead><tr><th>Category</th><th>Sales</th><th>Share</th><th>Profit ratio</th></tr></thead>
             <tbody>
