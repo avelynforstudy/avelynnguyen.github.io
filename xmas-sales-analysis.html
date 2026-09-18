@@ -79,53 +79,64 @@
     margin: 0;
   }
 
-  /* Fact band — reuses the .fact-label / .fact-value language from the About
-     section so this page feels like part of the same site, not a bolted-on template */
+  /* Fact band — four centered boxes in a warm tint distinct from the paper background */
   .fact-band {
+    --tint: #f6ead0;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 0;
+    gap: 14px;
     margin-top: 48px;
-    border-top: 1px solid var(--line);
-    border-bottom: 1px solid var(--line);
   }
 
   .fact-band-item {
-    padding: 20px 24px 20px 0;
-    border-right: 1px solid var(--line);
+    background: var(--tint);
+    border: 1px solid rgba(185, 141, 62, 0.22);
+    border-radius: 14px;
+    padding: 22px 18px;
+    text-align: center;
   }
-  .fact-band-item:last-child { border-right: none; }
 
-  /* Findings */
+  .fact-band-item .fact-label { display: block; margin-bottom: 8px; }
+  .fact-band-item .fact-value { display: block; }
+
+  /* Findings ↔ Actions — two symmetric columns */
   .findings-section { background: var(--paper-alt); }
 
-  .findings-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-  }
+  .findings-actions { display: flex; flex-direction: column; }
 
-  .finding-item {
+  .fa-row {
     display: grid;
-    grid-template-columns: 44px 1fr;
-    gap: 20px;
-    padding: 24px 0;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+    padding: 18px 0;
     border-bottom: 1px solid var(--line);
+    align-items: start;
   }
-  .finding-item:last-child { border-bottom: none; }
+  .fa-row:last-child { border-bottom: none; }
 
-  .finding-num {
-    font-family: var(--serif);
-    font-size: 1.3rem;
-    font-weight: 600;
-    color: var(--gold-light);
-  }
+  .fa-row.fa-header { padding-top: 0; padding-bottom: 10px; }
 
-  .finding-body p {
+  .fa-col-label {
     margin: 0;
-    font-size: 0.98rem;
-    line-height: 1.7;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--gold);
+    font-weight: 700;
+  }
+
+  .fa-text {
+    margin: 0;
+    font-size: 0.92rem;
+    line-height: 1.62;
     color: var(--ink);
+  }
+
+  .fa-action {
+    color: var(--navy);
+    font-weight: 500;
+    padding-left: 20px;
+    border-left: 1px solid var(--line);
   }
 
   /* Theme sections */
@@ -148,25 +159,27 @@
     font-weight: 500;
   }
 
-  /* Charts — plain SVG/CSS, no libraries, matches "no build step" site */
+  /* Charts — plain SVG/CSS, no libraries, matches "no build step" site.
+     Kept deliberately small: the SQL is the point of this page, charts are a quick visual aside. */
   .chart-card {
     background: var(--paper);
     border: 1px solid var(--line);
     border-radius: var(--radius);
-    padding: 28px 32px;
-    margin-bottom: 40px;
+    padding: 16px 20px;
+    margin-bottom: 20px;
   }
   .section.alt .chart-card { background: var(--paper); }
 
   .chart-label {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     text-transform: uppercase;
     letter-spacing: 0.08em;
     color: var(--muted);
-    margin: 0 0 18px;
+    margin: 0 0 10px;
   }
 
   .chart-svg { width: 100%; height: auto; display: block; }
+  .chart-compact { max-width: 340px; margin: 0 auto; }
   .chart-svg .grid-line { stroke: var(--line); stroke-width: 1; }
   .chart-svg .data-line { fill: none; stroke: var(--gold); stroke-width: 2.5; }
   .chart-svg .data-area { fill: rgba(185, 141, 62, 0.10); stroke: none; }
@@ -174,40 +187,42 @@
   .chart-svg .axis-label { font-family: var(--sans); font-size: 11px; fill: var(--muted); }
   .chart-svg .value-label { font-family: var(--serif); font-size: 12px; font-weight: 600; fill: var(--navy); }
 
-  /* Horizontal bar rows (country revenue, product category) */
-  .bar-rows { display: flex; flex-direction: column; gap: 12px; }
-  .bar-row { display: grid; grid-template-columns: 130px 1fr 60px; align-items: center; gap: 12px; }
-  .bar-row-label { font-size: 0.85rem; color: var(--ink); font-weight: 500; }
-  .bar-track { height: 10px; background: var(--paper-alt); border-radius: 999px; overflow: hidden; }
+  /* Horizontal bar rows (country revenue, product category) — compact, two columns */
+  .bar-rows { display: flex; flex-direction: column; gap: 6px; }
+  .bar-rows.cols-2 { display: grid; grid-auto-flow: column; grid-template-columns: repeat(2, 1fr); gap: 5px 20px; }
+  .bar-row { display: grid; grid-template-columns: 96px 1fr 46px; align-items: center; gap: 8px; }
+  .bar-row-label { font-size: 0.76rem; color: var(--ink); font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .bar-track { height: 6px; background: var(--paper-alt); border-radius: 999px; overflow: hidden; }
   .bar-fill { height: 100%; background: var(--gold-light); border-radius: 999px; }
-  .bar-row-value { font-size: 0.82rem; color: var(--muted); text-align: right; font-variant-numeric: tabular-nums; }
+  .bar-row-value { font-size: 0.74rem; color: var(--muted); text-align: right; font-variant-numeric: tabular-nums; }
   .bar-row.is-lead .bar-fill { background: var(--gold); }
   .bar-row.is-lead .bar-row-label { color: var(--navy); font-weight: 700; }
 
-  /* Diverging bars (country growth) */
-  .diverge-rows { display: flex; flex-direction: column; gap: 10px; }
-  .diverge-row { display: grid; grid-template-columns: 110px 1fr 60px; align-items: center; gap: 12px; }
-  .diverge-row-label { font-size: 0.85rem; color: var(--ink); font-weight: 500; }
-  .diverge-track { position: relative; height: 10px; background: transparent; }
-  .diverge-mid { position: absolute; left: 50%; top: -4px; bottom: -4px; width: 1px; background: var(--line); }
+  /* Diverging bars (country growth) — compact, two columns */
+  .diverge-rows { display: flex; flex-direction: column; gap: 6px; }
+  .diverge-rows.cols-2 { display: grid; grid-auto-flow: column; grid-template-columns: repeat(2, 1fr); gap: 5px 20px; }
+  .diverge-row { display: grid; grid-template-columns: 84px 1fr 42px; align-items: center; gap: 8px; }
+  .diverge-row-label { font-size: 0.76rem; color: var(--ink); font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .diverge-track { position: relative; height: 6px; background: transparent; }
+  .diverge-mid { position: absolute; left: 50%; top: -3px; bottom: -3px; width: 1px; background: var(--line); }
   .diverge-fill {
     position: absolute; top: 0; height: 100%; border-radius: 999px;
   }
   .diverge-fill.pos { left: 50%; background: var(--gold); }
   .diverge-fill.neg { right: 50%; background: var(--navy); opacity: 0.75; }
-  .diverge-row-value { font-size: 0.82rem; text-align: right; font-variant-numeric: tabular-nums; }
+  .diverge-row-value { font-size: 0.74rem; text-align: right; font-variant-numeric: tabular-nums; }
   .diverge-row-value.pos { color: var(--gold); font-weight: 600; }
   .diverge-row-value.neg { color: var(--navy); font-weight: 600; }
 
-  /* Stacked share bar (channel mix, age mix) */
+  /* Stacked share bar (channel mix, age mix) — compact */
   .stack-bar {
     display: flex;
-    height: 40px;
-    border-radius: 8px;
+    height: 26px;
+    border-radius: 6px;
     overflow: hidden;
-    margin-bottom: 14px;
+    margin-bottom: 10px;
   }
-  .stack-seg { display: flex; align-items: center; justify-content: center; font-size: 0.78rem; font-weight: 700; color: var(--paper); }
+  .stack-seg { display: flex; align-items: center; justify-content: center; font-size: 0.68rem; font-weight: 700; color: var(--paper); }
   .stack-legend { display: flex; gap: 24px; flex-wrap: wrap; }
   .stack-legend-item { display: flex; align-items: center; gap: 8px; font-size: 0.82rem; color: var(--muted); }
   .stack-swatch { width: 10px; height: 10px; border-radius: 2px; }
@@ -256,21 +271,40 @@
   .sql-block {
     margin-top: 16px;
     background: var(--navy-deep);
-    border-radius: 10px;
-    padding: 20px 22px;
+    border-left: 3px solid var(--gold);
+    border-radius: 4px 10px 10px 4px;
+    padding: 22px 26px;
     overflow-x: auto;
   }
   .sql-block pre {
     margin: 0;
     font-family: 'JetBrains Mono', 'Consolas', monospace;
-    font-size: 0.82rem;
-    line-height: 1.6;
+    font-size: 0.9rem;
+    line-height: 1.65;
     color: #dce3f0;
     white-space: pre;
   }
   .sql-block .kw { color: #d9b56a; }
   .sql-block .fn { color: #8fb8de; }
   .sql-block .cm { color: #6b7d99; font-style: italic; }
+
+  .appendix-jump {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--gold);
+    background: rgba(185, 141, 62, 0.10);
+    padding: 5px 12px;
+    border-radius: 999px;
+    text-decoration: none;
+    margin: 10px 0 0;
+    width: fit-content;
+  }
+  .appendix-jump:hover { background: rgba(185, 141, 62, 0.2); }
 
   .result-table {
     margin-top: 16px;
@@ -312,7 +346,7 @@
     margin: 0 0 44px;
   }
 
-  .appendix-group { margin-bottom: 40px; }
+  .appendix-group { margin-bottom: 40px; scroll-margin-top: 90px; }
 
   .appendix-group-label {
     font-family: var(--serif);
@@ -361,10 +395,11 @@
 
   @media (max-width: 720px) {
     .fact-band { grid-template-columns: repeat(2, 1fr); }
-    .fact-band-item:nth-child(2) { border-right: none; }
-    .fact-band-item { border-bottom: 1px solid var(--line); padding-bottom: 20px; }
-    .finding-item { grid-template-columns: 32px 1fr; }
-    .bar-row, .diverge-row { grid-template-columns: 90px 1fr 50px; }
+    .fa-row { grid-template-columns: 1fr; gap: 6px; }
+    .fa-row.fa-header { display: none; }
+    .fa-action { padding-left: 0; border-left: none; padding-top: 4px; border-top: 1px dashed var(--line); }
+    .bar-rows.cols-2, .diverge-rows.cols-2 { grid-auto-flow: row; grid-template-columns: 1fr; grid-template-rows: none !important; }
+    .bar-row, .diverge-row { grid-template-columns: 80px 1fr 42px; }
     .case-footer-nav { flex-direction: column; gap: 16px; align-items: flex-start; }
   }
 </style>
@@ -404,20 +439,20 @@
 
     <div class="fact-band">
       <div class="fact-band-item">
-        <span class="fact-label">Tools</span><br>
-        <span class="fact-value" style="font-size:0.95rem;">SQL Server — CTEs, self-joins, views</span>
+        <span class="fact-label">Tools</span>
+        <span class="fact-value" style="font-size:0.92rem;">SQL Server — CTEs, self-joins, views</span>
       </div>
       <div class="fact-band-item">
-        <span class="fact-label">Scope</span><br>
-        <span class="fact-value" style="font-size:0.95rem;">4 seasons (2018–2021) · 10 countries</span>
+        <span class="fact-label">Scope</span>
+        <span class="fact-value" style="font-size:0.92rem;">4 seasons (2018–2021) · 10 countries</span>
       </div>
       <div class="fact-band-item">
-        <span class="fact-label">Dimensions</span><br>
-        <span class="fact-value" style="font-size:0.95rem;">Geography, channel, product, age &amp; gender</span>
+        <span class="fact-label">Dimensions</span>
+        <span class="fact-value" style="font-size:0.92rem;">Geography, channel, product, age &amp; gender</span>
       </div>
       <div class="fact-band-item">
-        <span class="fact-label">Goal</span><br>
-        <span class="fact-value" style="font-size:0.95rem;">Marketing, staffing &amp; channel decisions</span>
+        <span class="fact-label">Goal</span>
+        <span class="fact-value" style="font-size:0.92rem;">Marketing, staffing &amp; channel decisions</span>
       </div>
     </div>
   </section>
@@ -426,49 +461,48 @@
   <section class="section findings-section">
     <div class="section-inner">
       <p class="theme-heading"><span class="plain">Key</span> <span class="accent">findings</span></p>
-      <p class="theme-takeaway">Six takeaways pulled directly from the query results below — written as
-        decisions, not descriptions.</p>
+      <p class="theme-takeaway">What the data actually shows, next to what to do about it.</p>
 
-      <div class="findings-list">
-        <div class="finding-item">
-          <span class="finding-num">01</span>
-          <div class="finding-body"><p>Treat the 1–11 age group as its own market, not a lead-in to teens.
-            Their in-store/cash behavior doesn't carry into older customers — 12–17 and 18+ behave almost
-            identically in channel and payment choice. Design family/in-store holiday experiences for the
-            youngest segment; treat teens and adults as one combined audience for channel strategy.</p></div>
+      <div class="findings-actions">
+        <div class="fa-row fa-header">
+          <p class="fa-col-label">Key Finding</p>
+          <p class="fa-col-label">Recommended Action</p>
         </div>
-        <div class="finding-item">
-          <span class="finding-num">02</span>
-          <div class="finding-body"><p>Don't chase "higher-margin" categories — chase volume in what already
-            sells. Profit ratio is nearly flat (76.7–77.0%) across all 13 categories, so Toys' revenue lead is
-            a volume story, not a margin story. Scaling Toys and Clothing further beats shifting the product mix.</p></div>
+        <div class="fa-row">
+          <p class="fa-text">The youngest shoppers (1–11) behave nothing like teens or adults — they shop
+            almost entirely in-store and pay in cash, while 12–17 and 18+ look nearly identical to each other.</p>
+          <p class="fa-text fa-action">Treat kids as their own market: build family-focused, in-store holiday
+            experiences for them, and run one unified channel strategy for teens and adults.</p>
         </div>
-        <div class="finding-item">
-          <span class="finding-num">03</span>
-          <div class="finding-body"><p>Concentrate staffing and promotions in the 9 AM–6 PM window, peaking
-            at 3 PM. Order volume drops off sharply after 7 PM rather than tapering gradually, so after-hours
-            investment is likely low-return.</p></div>
+        <div class="fa-row">
+          <p class="fa-text">Profit margin barely moves across all 13 product categories (76.7–77.0%) — Toys'
+            revenue lead is a volume story, not a margin story.</p>
+          <p class="fa-text fa-action">Double down on what already sells: scale Toys and Clothing further
+            instead of chasing "higher-margin" categories.</p>
         </div>
-        <div class="finding-item">
-          <span class="finding-num">04</span>
-          <div class="finding-body"><p>Split marketing timing by gender, not just by day-of-week generally —
-            female shoppers peak on Monday, male shoppers peak on Friday, rather than one blanket weekly
-            schedule.</p></div>
+        <div class="fa-row">
+          <p class="fa-text">Orders cluster tightly between 9 AM and 6 PM, peak at 3 PM, then drop sharply
+            after 7 PM.</p>
+          <p class="fa-text fa-action">Concentrate staffing and promotions in that 9-to-6 window and pull back
+            on after-hours spend.</p>
         </div>
-        <div class="finding-item">
-          <span class="finding-num">05</span>
-          <div class="finding-body"><p>Revenue leadership and growth momentum are decoupled — don't
-            over-invest in the current #1 market. Sweden leads in total revenue ($3.78M) but declined -6.2%
-            last season, while Austria (+12.4%) and the UK (+11.8%) are the actual growth stories. A
-            defend-Sweden-while-investing-in-Austria/UK strategy fits the data better than treating Sweden as
-            the growth engine.</p></div>
+        <div class="fa-row">
+          <p class="fa-text">Female shoppers peak on Monday; male shoppers peak on Friday — a real
+            day-of-week split, not noise.</p>
+          <p class="fa-text fa-action">Time gender-targeted campaigns to match: female-focused Monday,
+            male-focused Friday.</p>
         </div>
-        <div class="finding-item">
-          <span class="finding-num">06</span>
-          <div class="finding-body"><p>In-store loyalty held even through 2020 — channel mix (63–67% in-store)
-            barely moved across all four seasons, including the pandemic year. This customer base didn't shift
-            online under pressure, which should inform how much digital investment is really warranted here
-            versus in-store experience.</p></div>
+        <div class="fa-row">
+          <p class="fa-text">Sweden leads total revenue ($3.78M) but actually declined -6.2% last season,
+            while Austria (+12.4%) and the UK (+11.8%) are quietly the fastest-growing markets.</p>
+          <p class="fa-text fa-action">Defend Sweden's position while shifting incremental investment toward
+            Austria and the UK.</p>
+        </div>
+        <div class="fa-row">
+          <p class="fa-text">In-store held 63–67% of revenue every season — even through 2020, when many
+            retailers saw shoppers move online.</p>
+          <p class="fa-text fa-action">Weigh new digital investment carefully; this customer base hasn't shown
+            it wants to shop online.</p>
         </div>
       </div>
     </div>
@@ -481,7 +515,7 @@
       <p class="theme-takeaway">Revenue held remarkably steady across four seasons — a 2020 dip and a full
         recovery, with profit margin barely moving through any of it.</p>
 
-      <div class="chart-card">
+      <div class="chart-card chart-compact">
         <p class="chart-label">Total revenue by Christmas season ($M)</p>
         <svg class="chart-svg" viewBox="0 0 500 180" preserveAspectRatio="xMidYMid meet">
           <line class="grid-line" x1="40" y1="20" x2="460" y2="20"></line>
@@ -510,7 +544,8 @@
           <p class="insight-text">Revenue dipped to $6.95M in 2020 (likely pandemic disruption) before
             recovering to $7.09M in 2021 — but profit margin held rock-steady at ~77% through every season,
             dip included. Costs scaled with revenue; nothing structural broke.</p>
-          <details class="sql-toggle">
+          <a class="appendix-jump" href="#appendix-q1">See the real screenshots ↗</a>
+          <details class="sql-toggle" open>
             <summary><span class="chevron">▸</span> View SQL</summary>
             <div class="sql-block"><pre><span class="cm">-- Season KPIs, rounded to $M / thousand units</span>
 <span class="kw">;WITH</span> s <span class="kw">AS</span> (
@@ -543,7 +578,8 @@
           <p class="insight-text">Growth swung from +1.5% (2019) to -3.2% (2020) and back to +1.9% (2021) — a
             clear dip-and-recovery pattern. In the most recent season, revenue (+1.9%) and quantity (+2.1%)
             moved almost in lockstep, meaning growth came from more units sold, not higher prices.</p>
-          <details class="sql-toggle">
+          <a class="appendix-jump" href="#appendix-q2">See the real screenshots ↗</a>
+          <details class="sql-toggle" open>
             <summary><span class="chevron">▸</span> View SQL</summary>
             <div class="sql-block"><pre><span class="cm">-- Self-join on xmas_year to compare each season to the one before it</span>
 <span class="kw">;WITH</span> s <span class="kw">AS</span> (
@@ -580,7 +616,7 @@
 
       <div class="chart-card">
         <p class="chart-label">Total revenue by country ($M)</p>
-        <div class="bar-rows">
+        <div class="bar-rows cols-2" style="grid-template-rows: repeat(5, auto);">
           <div class="bar-row is-lead"><span class="bar-row-label">Sweden</span><div class="bar-track"><div class="bar-fill" style="width:100.0%"></div></div><span class="bar-row-value">$3.78M</span></div>
           <div class="bar-row"><span class="bar-row-label">Netherlands</span><div class="bar-track"><div class="bar-fill" style="width:99.7%"></div></div><span class="bar-row-value">$3.77M</span></div>
           <div class="bar-row"><span class="bar-row-label">Germany</span><div class="bar-track"><div class="bar-fill" style="width:97.9%"></div></div><span class="bar-row-value">$3.70M</span></div>
@@ -596,7 +632,7 @@
 
       <div class="chart-card">
         <p class="chart-label">Revenue growth by country, 2021–22 vs. prior season</p>
-        <div class="diverge-rows">
+        <div class="diverge-rows cols-2" style="grid-template-rows: repeat(5, auto);">
           <div class="diverge-row"><span class="diverge-row-label">Austria</span><div class="diverge-track"><div class="diverge-mid"></div><div class="diverge-fill pos" style="width:50.0%"></div></div><span class="diverge-row-value pos">+12.4%</span></div>
           <div class="diverge-row"><span class="diverge-row-label">United Kingdom</span><div class="diverge-track"><div class="diverge-mid"></div><div class="diverge-fill pos" style="width:47.6%"></div></div><span class="diverge-row-value pos">+11.8%</span></div>
           <div class="diverge-row"><span class="diverge-row-label">Poland</span><div class="diverge-track"><div class="diverge-mid"></div><div class="diverge-fill pos" style="width:32.6%"></div></div><span class="diverge-row-value pos">+8.1%</span></div>
@@ -616,7 +652,8 @@
           <p class="insight-text">Sweden leads total revenue at $3.78M, though the top four countries
             (Sweden, Netherlands, Germany, UK) are within 4% of each other — this is a tight four-way race at
             the top, not a single runaway leader.</p>
-          <details class="sql-toggle">
+          <a class="appendix-jump" href="#appendix-q5">See the real screenshots ↗</a>
+          <details class="sql-toggle" open>
             <summary><span class="chevron">▸</span> View SQL</summary>
             <div class="sql-block"><pre><span class="kw">SELECT</span> country, <span class="fn">ROUND</span>(<span class="fn">SUM</span>(total_sales) / <span class="fn">POWER</span>(10,6), 2) <span class="kw">AS</span> sales
 <span class="kw">FROM</span> dbo.v_xmas_sales
@@ -630,7 +667,8 @@
           <p class="insight-text">Revenue leadership doesn't mean growth momentum. Austria (+12.4%) and the
             UK (+11.8%) grew fastest in 2021–22, while Sweden — the #1 country by total revenue — actually
             declined -6.2%, and France fell hardest at -8.4%.</p>
-          <details class="sql-toggle">
+          <a class="appendix-jump" href="#appendix-q6">See the real screenshots ↗</a>
+          <details class="sql-toggle" open>
             <summary><span class="chevron">▸</span> View SQL</summary>
             <div class="sql-block"><pre><span class="cm">-- Self-join on xmas_year + country to line up each country against its own prior season</span>
 <span class="kw">;WITH</span> s <span class="kw">AS</span> (
@@ -665,9 +703,10 @@
           <div class="stack-seg" style="width:17.8%; background: var(--gold);">Online 17.8%</div>
           <div class="stack-seg" style="width:17.5%; background: var(--gold-light); color: var(--navy);">Xmas Market 17.5%</div>
         </div>
+        <a class="appendix-jump" href="#appendix-q4">See the real screenshots ↗</a>
       </div>
 
-      <div class="chart-card">
+      <div class="chart-card chart-compact">
         <p class="chart-label">Orders by hour of day</p>
         <svg class="chart-svg" viewBox="0 0 500 150" preserveAspectRatio="xMidYMid meet">
           <line class="grid-line" x1="20" y1="130" x2="480" y2="130"></line>
@@ -687,7 +726,8 @@
           <p class="insight-text">The 1–11 age group drives the single largest share of holiday revenue
             (38.9%) — edging out both teens (30.8%) and adults (30.3%) individually. Gender split is nearly
             even (50.6% female / 49.4% male), and in-store still dominates overall (64.7%).</p>
-          <details class="sql-toggle">
+          <a class="appendix-jump" href="#appendix-q7">See the real screenshots ↗</a>
+          <details class="sql-toggle" open>
             <summary><span class="chevron">▸</span> View SQL</summary>
             <div class="sql-block"><pre><span class="kw">DECLARE</span> @total_sales <span class="fn">DECIMAL</span>(18,0) = (<span class="kw">SELECT</span> <span class="fn">SUM</span>(total_sales) <span class="kw">FROM</span> dbo.v_xmas_sales);
 
@@ -709,7 +749,8 @@
             and payment behavior (58.7% vs. 58.3% in-store, 23.6% vs. 23.1% PayPal). The real split isn't
             teen-vs-adult — it's kids-vs-everyone-else: the 1–11 group shops almost exclusively in-store
             (74.4%) and pays almost entirely in cash (86.2%).</p>
-          <details class="sql-toggle">
+          <a class="appendix-jump" href="#appendix-q8">See the real screenshots ↗</a>
+          <details class="sql-toggle" open>
             <summary><span class="chevron">▸</span> View SQL</summary>
             <div class="sql-block"><pre><span class="cm">-- Two CTEs: per-age total, per-age-per-channel total, then divide</span>
 <span class="kw">;WITH</span> t <span class="kw">AS</span> (
@@ -740,7 +781,8 @@ s <span class="kw">AS</span> (
           <p class="insight-text">Orders cluster tightly between 9 AM and 6 PM, peak at 3 PM (3,131 orders),
             then fall off a cliff after 7 PM — a clear "prime shopping window" rather than an even spread
             across the day. Within the week, female shoppers peak on Monday and male shoppers peak on Friday.</p>
-          <details class="sql-toggle">
+          <a class="appendix-jump" href="#appendix-q10">See the real screenshots ↗</a>
+          <details class="sql-toggle" open>
             <summary><span class="chevron">▸</span> View SQL</summary>
             <div class="sql-block"><pre><span class="kw">SELECT</span> gender, weekday, weekday_name, <span class="fn">COUNT</span>(*) <span class="kw">AS</span> nb_orders
 <span class="kw">FROM</span> dbo.v_xmas_sales
@@ -766,7 +808,7 @@ s <span class="kw">AS</span> (
 
       <div class="chart-card">
         <p class="chart-label">Total sales by product category ($M)</p>
-        <div class="bar-rows">
+        <div class="bar-rows cols-2" style="grid-template-rows: repeat(7, auto);">
           <div class="bar-row is-lead"><span class="bar-row-label">Toys</span><div class="bar-track"><div class="bar-fill" style="width:100.0%"></div></div><span class="bar-row-value">$4.46M</span></div>
           <div class="bar-row"><span class="bar-row-label">Clothing</span><div class="bar-track"><div class="bar-fill" style="width:72.2%"></div></div><span class="bar-row-value">$3.22M</span></div>
           <div class="bar-row"><span class="bar-row-label">Accessories</span><div class="bar-track"><div class="bar-fill" style="width:63.0%"></div></div><span class="bar-row-value">$2.81M</span></div>
@@ -789,7 +831,8 @@ s <span class="kw">AS</span> (
           <p class="insight-text">Toys leads by a wide margin (15.8% of total revenue, nearly 40% ahead of the
             next category), but profit ratio barely moves across all 13 categories (76.7–77.0%). Profitability
             here isn't about picking a "better margin" category — it's about volume in what already sells.</p>
-          <details class="sql-toggle">
+          <a class="appendix-jump" href="#appendix-q9">See the real screenshots ↗</a>
+          <details class="sql-toggle" open>
             <summary><span class="chevron">▸</span> View SQL</summary>
             <div class="sql-block"><pre><span class="kw">DECLARE</span> @total_sales <span class="fn">DECIMAL</span>(18,0) = (<span class="kw">SELECT</span> <span class="fn">SUM</span>(total_sales) <span class="kw">FROM</span> dbo.v_xmas_sales);
 
@@ -831,7 +874,7 @@ s <span class="kw">AS</span> (
         SQL Server Management Studio screenshots each one was run from — click any thumbnail to view it full
         size.</p>
 
-      <div class="appendix-group">
+      <div class="appendix-group" id="appendix-q1">
         <p class="appendix-group-label">Question 1 — Revenue, quantity, cost &amp; profit by season</p>
         <div class="shot-grid">
           <a class="shot-thumb" href="assets/images/sql-screenshots/q1-code-1.png" target="_blank"><img src="assets/images/sql-screenshots/q1-code-1.png" alt="Question 1 SQL — CTE setup"><span class="shot-thumb-caption">Query (CTE setup)</span></a>
@@ -840,7 +883,7 @@ s <span class="kw">AS</span> (
         </div>
       </div>
 
-      <div class="appendix-group">
+      <div class="appendix-group" id="appendix-q2">
         <p class="appendix-group-label">Question 2 — YoY growth vs. previous season</p>
         <div class="shot-grid">
           <a class="shot-thumb" href="assets/images/sql-screenshots/q2-code-1.png" target="_blank"><img src="assets/images/sql-screenshots/q2-code-1.png" alt="Question 2 SQL — view creation"><span class="shot-thumb-caption">Query (view creation)</span></a>
@@ -849,7 +892,7 @@ s <span class="kw">AS</span> (
         </div>
       </div>
 
-      <div class="appendix-group">
+      <div class="appendix-group" id="appendix-q3">
         <p class="appendix-group-label">Question 3 — Revenue growth across every season</p>
         <div class="shot-grid">
           <a class="shot-thumb" href="assets/images/sql-screenshots/q3-code.png" target="_blank"><img src="assets/images/sql-screenshots/q3-code.png" alt="Question 3 SQL"><span class="shot-thumb-caption">Query</span></a>
@@ -857,7 +900,7 @@ s <span class="kw">AS</span> (
         </div>
       </div>
 
-      <div class="appendix-group">
+      <div class="appendix-group" id="appendix-q4">
         <p class="appendix-group-label">Question 4 — Revenue share by purchase channel</p>
         <div class="shot-grid">
           <a class="shot-thumb" href="assets/images/sql-screenshots/q4-code.png" target="_blank"><img src="assets/images/sql-screenshots/q4-code.png" alt="Question 4 SQL"><span class="shot-thumb-caption">Query</span></a>
@@ -865,7 +908,7 @@ s <span class="kw">AS</span> (
         </div>
       </div>
 
-      <div class="appendix-group">
+      <div class="appendix-group" id="appendix-q5">
         <p class="appendix-group-label">Question 5 — Revenue by country and city</p>
         <div class="shot-grid">
           <a class="shot-thumb" href="assets/images/sql-screenshots/q5-code.png" target="_blank"><img src="assets/images/sql-screenshots/q5-code.png" alt="Question 5 SQL"><span class="shot-thumb-caption">Query</span></a>
@@ -874,7 +917,7 @@ s <span class="kw">AS</span> (
         </div>
       </div>
 
-      <div class="appendix-group">
+      <div class="appendix-group" id="appendix-q6">
         <p class="appendix-group-label">Question 6 — Growth ranking by country, latest season</p>
         <div class="shot-grid">
           <a class="shot-thumb" href="assets/images/sql-screenshots/q6-code.png" target="_blank"><img src="assets/images/sql-screenshots/q6-code.png" alt="Question 6 SQL"><span class="shot-thumb-caption">Query</span></a>
@@ -882,7 +925,7 @@ s <span class="kw">AS</span> (
         </div>
       </div>
 
-      <div class="appendix-group">
+      <div class="appendix-group" id="appendix-q7">
         <p class="appendix-group-label">Question 7 — Revenue share by age, gender &amp; purchase method</p>
         <div class="shot-grid">
           <a class="shot-thumb" href="assets/images/sql-screenshots/q7-code.png" target="_blank"><img src="assets/images/sql-screenshots/q7-code.png" alt="Question 7 SQL"><span class="shot-thumb-caption">Query</span></a>
@@ -892,7 +935,7 @@ s <span class="kw">AS</span> (
         </div>
       </div>
 
-      <div class="appendix-group">
+      <div class="appendix-group" id="appendix-q8">
         <p class="appendix-group-label">Question 8 — Channel &amp; payment mix within each age group</p>
         <div class="shot-grid">
           <a class="shot-thumb" href="assets/images/sql-screenshots/q8-code-1.png" target="_blank"><img src="assets/images/sql-screenshots/q8-code-1.png" alt="Question 8 SQL — purchase type by age"><span class="shot-thumb-caption">Query (channel by age)</span></a>
@@ -902,7 +945,7 @@ s <span class="kw">AS</span> (
         </div>
       </div>
 
-      <div class="appendix-group">
+      <div class="appendix-group" id="appendix-q9">
         <p class="appendix-group-label">Question 9 — Sales, profit ratio &amp; avg. unit price by category</p>
         <div class="shot-grid">
           <a class="shot-thumb" href="assets/images/sql-screenshots/q9-code-category.png" target="_blank"><img src="assets/images/sql-screenshots/q9-code-category.png" alt="Question 9 SQL — by category"><span class="shot-thumb-caption">Query (by category)</span></a>
@@ -912,7 +955,7 @@ s <span class="kw">AS</span> (
         </div>
       </div>
 
-      <div class="appendix-group">
+      <div class="appendix-group" id="appendix-q10">
         <p class="appendix-group-label">Question 10 — Weekday &amp; hourly purchase timing</p>
         <div class="shot-grid">
           <a class="shot-thumb" href="assets/images/sql-screenshots/q10-code.png" target="_blank"><img src="assets/images/sql-screenshots/q10-code.png" alt="Question 10 SQL"><span class="shot-thumb-caption">Query</span></a>
