@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Fiscal Challenge 2026: Can the US Get Its Debt Under Control? | Avelyn Nguyen</title>
+<meta name="description" content="How Team 628's fiscal model shows US debt could fall from 176% of GDP to about 95% by 2056 — the tax and spending reforms behind the number, and the Excel model Avelyn built to test them." />
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+  /* ---- Page-specific additions (kept separate from styles.css on purpose,
+       so this page can be dropped in without touching the shared stylesheet) ---- */
+
+  .case-header {
+    padding: 48px 32px 0;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .case-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 7px 14px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    transition: border-color 0.2s ease, color 0.2s ease;
+  }
+  .case-back:hover { color: var(--navy); border-color: var(--gold-light); }
+
+  .case-crumb {
+    margin: 20px 0 0;
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+  .case-crumb span { color: var(--navy); font-weight: 600; }
+
+  .case-hero {
+    padding: 24px 32px 56px;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .case-tag {
+    display: inline-block;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 700;
+    color: var(--gold);
+    background: rgba(185, 141, 62, 0.1);
+    padding: 5px 12px;
+    border-radius: 999px;
+    margin-bottom: 20px;
+  }
+
+  .case-hero h1 {
+    font-family: var(--serif);
+    font-size: clamp(1.9rem, 4.2vw, 2.8rem);
+    font-weight: 600;
+    color: var(--navy);
+    margin: 0 0 18px;
+    letter-spacing: -0.01em;
+    max-width: 760px;
+  }
+
+  .case-hero-sub {
+    font-size: 0.94rem;
+    line-height: 1.65;
+    color: var(--ink);
+    max-width: 640px;
+    margin: 0 0 14px;
+  }
+
+  .case-meta {
+    font-size: 0.8rem;
+    color: var(--muted);
+    font-weight: 500;
+  }
+
+  /* Fact band — three centered boxes in a warm tint distinct from the paper background */
+  .fact-band {
+    --tint: #f6ead0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-top: 40px;
+  }
+
+  .fact-band-item {
+    background: var(--tint);
+    border: 1px solid rgba(185, 141, 62, 0.22);
+    border-radius: 14px;
+    padding: 22px 18px;
+    text-align: center;
+  }
+
+  .fact-band-item .fact-label { display: block; margin-bottom: 8px; }
+  .fact-band-item .fact-value { display: block; }
+
+  /* Jargon tooltip — hover for mouse, tap/click for touch, focus for keyboard */
+  .term {
+    position: relative;
+    border-bottom: 1px dotted var(--gold);
+    color: var(--navy);
+    font-weight: 600;
+    cursor: help;
+  }
+
+  .term::after {
+    content: attr(data-tip);
+    position: absolute;
+    left: 50%;
+    bottom: calc(100% + 10px);
+    transform: translateX(-50%) translateY(4px);
+    width: 240px;
+    background: var(--navy);
+    color: #fff;
+    font-weight: 400;
+    font-size: 0.76rem;
+    line-height: 1.5;
+    padding: 10px 12px;
+    border-radius: 10px;
+    box-shadow: 0 12px 28px rgba(15, 31, 56, 0.22);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.15s ease, transform 0.15s ease;
+    z-index: 30;
+    pointer-events: none;
+  }
+
+  .term:hover::after,
+  .term:focus::after,
+  .term.tip-open::after {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  @media (max-width: 520px) {
+    .term::after { width: 190px; font-size: 0.72rem; }
+  }
+
+  /* Theme heading, shared look for section titles on this page */
+  .theme-heading {
+    margin: 0 0 16px;
+    line-height: 1.15;
+    font-family: var(--serif);
+    font-size: clamp(1.5rem, 3vw, 1.9rem);
+    font-weight: 500;
+  }
+  .theme-heading .plain { color: var(--ink); font-weight: 500; }
+  .theme-heading .accent { font-style: italic; font-weight: 600; color: var(--gold); }
+
+  .theme-body {
+    font-size: 0.9rem;
+    line-height: 1.65;
+    color: var(--ink);
+    max-width: 660px;
+    margin: 0 0 14px;
+  }
+  .theme-body:last-child { margin-bottom: 0; }
+
+  /* Three-step "how the model works" diagram */
+  .step-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    margin-top: 28px;
+  }
+
+  .step-card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 22px 20px;
+    position: relative;
+  }
+  .section.alt .step-card { background: var(--paper); }
+
+  .step-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--navy);
+    color: #fff;
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 14px;
+  }
+
+  .step-card h3 {
+    font-family: var(--serif);
+    font-size: 1.02rem;
+    color: var(--navy);
+    margin: 0 0 8px;
+    font-weight: 600;
+  }
+
+  .step-card p {
+    font-size: 0.84rem;
+    line-height: 1.6;
+    color: var(--ink);
+    margin: 0;
+  }
+
+  .step-arrow {
+    display: none;
+  }
+
+  @media (min-width: 721px) {
+    .step-grid { position: relative; }
+    .step-card:not(:last-child)::after {
+      content: '→';
+      position: absolute;
+      top: 50%;
+      right: -22px;
+      transform: translateY(-50%);
+      color: var(--gold-light);
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+  }
+
+  /* Model screenshots with lightbox */
+  .model-shots-intro {
+    font-size: 0.86rem;
+    color: var(--muted);
+    margin: 0 0 24px;
+  }
+
+  .model-shot {
+    margin: 0 0 28px;
+  }
+  .model-shot:last-child { margin-bottom: 0; }
+
+  .model-shot-scroll {
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow-x: auto;
+    background: var(--paper);
+  }
+  .section.alt .model-shot-scroll { background: var(--paper); }
+
+  .model-shot-scroll img {
+    display: block;
+    width: 100%;
+    height: auto;
+    cursor: zoom-in;
+  }
+
+  .model-shot figcaption {
+    font-size: 0.82rem;
+    line-height: 1.55;
+    color: var(--muted);
+    margin-top: 10px;
+  }
+
+  .zoom-hint {
+    display: inline-block;
+    margin-top: 6px;
+    font-size: 0.72rem;
+    color: var(--gold);
+    font-weight: 600;
+  }
+
+  @media (max-width: 720px) {
+    .model-shot-scroll img { width: 900px; max-width: none; }
+  }
+
+  /* Lightbox */
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 22, 38, 0.88);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+    z-index: 200;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease;
+  }
+  .lightbox.is-open { opacity: 1; visibility: visible; }
+
+  .lightbox img {
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 8px;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+  }
+
+  .lightbox-close {
+    position: absolute;
+    top: 24px;
+    right: 28px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+  .lightbox-close:hover { background: rgba(255, 255, 255, 0.2); }
+
+  /* Policy groups */
+  .policy-groups {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin: 28px 0 32px;
+  }
+
+  .policy-group {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+  }
+  .section.alt .policy-group { background: var(--paper); }
+
+  .policy-group h4 {
+    font-family: var(--serif);
+    font-size: 1rem;
+    color: var(--navy);
+    margin: 0 0 8px;
+    font-weight: 600;
+  }
+  .policy-group h4 .policy-note {
+    font-family: var(--sans);
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    margin-left: 6px;
+  }
+
+  .policy-group p {
+    font-size: 0.84rem;
+    line-height: 1.6;
+    color: var(--ink);
+    margin: 0 0 8px;
+  }
+
+  .policy-tradeoff {
+    font-size: 0.78rem !important;
+    color: var(--muted) !important;
+    font-style: italic;
+    margin: 0 !important;
+  }
+
+  /* Bar chart — plain CSS, no libraries */
+  .chart-card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 20px 22px;
+    margin-top: 8px;
+  }
+  .section.alt .chart-card { background: var(--paper); }
+
+  .chart-label {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin: 0 0 16px;
+  }
+
+  .bar-rows { display: flex; flex-direction: column; gap: 10px; }
+  .bar-row { display: grid; grid-template-columns: 200px 1fr 56px; align-items: center; gap: 10px; }
+  .bar-row-label { font-size: 0.78rem; color: var(--ink); font-weight: 500; }
+  .bar-track { height: 10px; background: var(--paper-alt); border-radius: 999px; overflow: hidden; }
+  .bar-fill { height: 100%; background: var(--gold-light); border-radius: 999px; }
+  .bar-row-value { font-size: 0.78rem; color: var(--muted); text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; }
+  .bar-row.is-lead .bar-fill { background: var(--gold); }
+  .bar-row.is-lead .bar-row-label { color: var(--navy); font-weight: 700; }
+
+  .chart-caption {
+    font-size: 0.78rem;
+    color: var(--muted);
+    margin: 16px 0 0;
+    font-style: italic;
+  }
+
+  /* Result comparison */
+  .result-compare { margin-top: 24px; }
+  .result-row { margin-bottom: 22px; }
+  .result-row:last-child { margin-bottom: 0; }
+
+  .result-row-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 8px;
+  }
+  .result-row-label { font-size: 0.84rem; font-weight: 600; color: var(--ink); }
+  .result-row-value { font-family: var(--serif); font-size: 1.3rem; font-weight: 700; color: var(--navy); }
+  .result-row.is-after .result-row-value { color: var(--gold); }
+
+  .result-track {
+    position: relative;
+    height: 14px;
+    background: var(--paper-alt);
+    border-radius: 999px;
+    overflow: visible;
+  }
+  .result-fill {
+    height: 100%;
+    border-radius: 999px;
+    background: var(--navy);
+  }
+  .result-row.is-after .result-fill { background: var(--gold); }
+
+  .result-target-line {
+    position: absolute;
+    top: -6px;
+    bottom: -6px;
+    width: 0;
+    border-left: 2px dashed var(--muted);
+  }
+  .result-target-label {
+    position: absolute;
+    top: -22px;
+    transform: translateX(-50%);
+    font-size: 0.68rem;
+    color: var(--muted);
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .result-note {
+    font-size: 0.86rem;
+    line-height: 1.6;
+    color: var(--ink);
+    margin: 28px 0 0;
+    max-width: 660px;
+  }
+
+  /* My role + limits */
+  .placeholder-box {
+    background: rgba(185, 141, 62, 0.08);
+    border: 1px dashed var(--gold-light);
+    border-radius: var(--radius);
+    padding: 16px 18px;
+    font-size: 0.86rem;
+    line-height: 1.6;
+    color: var(--muted);
+    font-style: italic;
+    margin: 0 0 18px;
+  }
+
+  .role-note {
+    font-size: 0.82rem;
+    line-height: 1.6;
+    color: var(--muted);
+    background: var(--paper-alt);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin: 0;
+  }
+  .section.alt .role-note { background: var(--paper); }
+
+  .limits-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin: 24px 0 20px;
+  }
+  .limits-item {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 16px 18px;
+    font-size: 0.82rem;
+    line-height: 1.6;
+    color: var(--ink);
+  }
+  .section.alt .limits-item { background: var(--paper); }
+
+  .next-step {
+    font-size: 0.86rem;
+    color: var(--navy);
+    font-weight: 600;
+    margin: 0;
+  }
+
+  /* Skills + links */
+  .skills-strip { margin-top: 32px; }
+  .skills-strip .fact-label { display: block; margin-bottom: 10px; }
+
+  .case-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 20px;
+  }
+
+  .case-footer-nav {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 48px 32px 96px;
+  }
+
+  section.section[id] { scroll-margin-top: 32px; }
+
+  @media (max-width: 720px) {
+    .fact-band { grid-template-columns: 1fr; }
+    .step-grid { grid-template-columns: 1fr; }
+    .policy-groups { grid-template-columns: 1fr; }
+    .limits-list { grid-template-columns: 1fr; }
+    .bar-row { grid-template-columns: 120px 1fr 48px; }
+    .bar-row-label { font-size: 0.72rem; }
+  }
+</style>
+</head>
+<body>
+<div class="noise"></div>
+
+<header class="nav" id="top">
+  <div class="nav-inner">
+    <a href="index.html#top" class="nav-brand">
+      <img src="assets/images/logo.png" alt="AN logo" class="nav-logo">
+      <span>Avelyn Nguyen</span>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html#about">About</a>
+      <a href="index.html#experience">Experience</a>
+      <a href="index.html#projects" class="active">Projects</a>
+      <a href="index.html#skills">Skills</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <div class="case-header">
+    <a href="index.html#projects" class="case-back">← Projects</a>
+    <p class="case-crumb">Projects / <span>Fiscal Challenge 2026</span></p>
+  </div>
+
+  <section class="case-hero">
+    <div class="case-tag">Fiscal Policy</div>
+    <h1>Fiscal Challenge 2026: Can the US Get Its Debt Under Control?</h1>
+    <p class="case-hero-sub">My team built a model showing how tax and spending reforms could cut projected
+      US debt from 176% of <span class="term" tabindex="0" data-tip="Gross Domestic Product — the total value of everything the U.S. economy produces in a year.">GDP</span>
+      to about 95% by 2056. I built the Excel model behind it.</p>
+    <p class="case-meta">Team 628 · Lead Financial Modeler · Excel, CBO Data</p>
+
+    <div class="fact-band">
+      <div class="fact-band-item">
+        <span class="fact-label">Debt vs. the Economy, 2056</span>
+        <span class="fact-value" style="font-family: var(--serif); font-size: 1.4rem; font-weight: 700; color: var(--navy);">176% → ~95%</span>
+      </div>
+      <div class="fact-band-item">
+        <span class="fact-label">Total Deficit Reduction</span>
+        <span class="fact-value" style="font-family: var(--serif); font-size: 1.4rem; font-weight: 700; color: var(--navy);">~$74T</span>
+      </div>
+      <div class="fact-band-item">
+        <span class="fact-label">Forecast Horizon</span>
+        <span class="fact-value" style="font-family: var(--serif); font-size: 1.4rem; font-weight: 700; color: var(--navy);">30 Years</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE PROBLEM -->
+  <section class="section" id="problem">
+    <div class="section-inner">
+      <h2 class="theme-heading"><span class="plain">The </span><span class="accent">Problem</span></h2>
+      <p class="theme-body">Think of <span class="term" tabindex="0" data-tip="A ratio comparing total government debt to the size of the economy — a common way to judge whether debt is manageable.">debt-to-GDP</span>
+        like a household's debt compared to a year of income. At 176%, the U.S. would owe nearly twice what
+        its entire economy produces in a single year.</p>
+      <p class="theme-body">That level of debt means more of the federal budget goes just to interest
+        payments, leaving less room for everything else — from infrastructure to Social Security. Our
+        starting point was the <span class="term" tabindex="0" data-tip="Congressional Budget Office — the nonpartisan federal agency that publishes official long-term budget forecasts.">CBO</span>'s
+        official long-term forecast, which projects debt reaching that 176% level by 2056 if nothing changes.</p>
+    </div>
+  </section>
+
+  <!-- HOW THE MODEL WORKS -->
+  <section class="section alt" id="how-it-works">
+    <div class="section-inner">
+      <h2 class="theme-heading"><span class="plain">How the </span><span class="accent">Model</span><span class="plain"> Works</span></h2>
+      <p class="theme-body">Three steps, run for every year from 2026 through 2056.</p>
+
+      <div class="step-grid">
+        <div class="step-card">
+          <span class="step-number">1</span>
+          <h3>Start with the Forecast</h3>
+          <p>We began with the CBO's official projection of revenue, spending, and debt through 2056 —
+            the baseline everything else is measured against.</p>
+        </div>
+        <div class="step-card">
+          <span class="step-number">2</span>
+          <h3>Test the Reforms</h3>
+          <p>Each proposed tax or spending change was layered into the model year by year to see its
+            individual and combined effect on the budget.</p>
+        </div>
+        <div class="step-card">
+          <span class="step-number">3</span>
+          <h3>Check the Economy's Reaction</h3>
+          <p>Higher taxes and spending cuts can slow growth, so the model adjusts GDP using a
+            <span class="term" tabindex="0" data-tip="A measure of how much a dollar of tax or spending change affects overall economic output.">fiscal multiplier</span>
+            for each change.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INSIDE THE MODEL -->
+  <section class="section" id="inside-model">
+    <div class="section-inner">
+      <h2 class="theme-heading"><span class="plain">Inside the </span><span class="accent">Model</span></h2>
+      <p class="model-shots-intro">Two views of the Excel dashboard that drives the whole analysis.</p>
+
+      <figure class="model-shot">
+        <div class="model-shot-scroll">
+          <img src="assets/images/fiscal-model-revenue.png"
+               alt="Excel model showing government revenue by category from 2043 to 2056, with bold CBO baseline rows and indented proposed tax changes"
+               tabindex="0" role="button"
+               aria-label="Click to enlarge the revenue side of the model">
+        </div>
+        <figcaption>
+          The revenue side of the model (2043–2056 shown). Bold rows are the official CBO forecast;
+          indented rows are our proposed tax changes, with 31-year totals on the right.
+          <span class="zoom-hint">Click to enlarge</span>
+        </figcaption>
+      </figure>
+
+      <figure class="model-shot">
+        <div class="model-shot-scroll">
+          <img src="assets/images/fiscal-model-spending-debt.png"
+               alt="Excel model showing government spending, deficit, and debt from 2043 to 2056, with proposed spending reforms and resulting debt-to-GDP ratio"
+               tabindex="0" role="button"
+               aria-label="Click to enlarge the spending, deficit and debt side of the model">
+        </div>
+        <figcaption>
+          The spending, deficit and debt side. Indented rows are our spending reforms (negative = savings).
+          The bottom row shows debt-to-GDP reaching 176% in the baseline and 95.17% after our reforms.
+          <span class="zoom-hint">Click to enlarge</span>
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- WHAT WE PROPOSED -->
+  <section class="section alt" id="proposal">
+    <div class="section-inner">
+      <h2 class="theme-heading"><span class="plain">What We </span><span class="accent">Proposed</span></h2>
+      <p class="theme-body">Four groups of reforms, each with a real trade-off attached.</p>
+
+      <div class="policy-groups">
+        <div class="policy-group">
+          <h4>Health Care <span class="policy-note">Largest Piece</span></h4>
+          <p>Cap Medicare spending per person and negotiate drug prices directly.</p>
+          <p class="policy-tradeoff">Trade-off: pressure on hospitals.</p>
+        </div>
+        <div class="policy-group">
+          <h4>Taxes on Higher Incomes &amp; Investments</h4>
+          <p>Limit itemized deductions, tax investment income, and tighten corporate tax rules.</p>
+          <p class="policy-tradeoff">Trade-off: less incentive to invest.</p>
+        </div>
+        <div class="policy-group">
+          <h4>Social Security</h4>
+          <p>Apply the payroll tax to earnings above $250K instead of capping it as today.</p>
+          <p class="policy-tradeoff">Trade-off: high earners pay more without higher benefits.</p>
+        </div>
+        <div class="policy-group">
+          <h4>Smaller Levers</h4>
+          <p>Defense contract audits, emergency-spending rules, "sin" excise taxes, and immigration
+            channels.</p>
+          <p class="policy-tradeoff">Trade-off: modest impact individually, meaningful combined.</p>
+        </div>
+      </div>
+
+      <div class="chart-card">
+        <p class="chart-label">Largest Levers · $ Trillions, 2026–2056</p>
+        <div class="bar-rows">
+          <div class="bar-row is-lead">
+            <span class="bar-row-label">Medicare spending cap</span>
+            <div class="bar-track"><div class="bar-fill" style="width: 100%;"></div></div>
+            <span class="bar-row-value">$15.2T</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-row-label">2% tax on investment income</span>
+            <div class="bar-track"><div class="bar-fill" style="width: 81.6%;"></div></div>
+            <span class="bar-row-value">$12.4T</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-row-label">Itemized deduction limit</span>
+            <div class="bar-track"><div class="bar-fill" style="width: 74.3%;"></div></div>
+            <span class="bar-row-value">$11.3T</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-row-label">SS tax above $250K</span>
+            <div class="bar-track"><div class="bar-fill" style="width: 55.9%;"></div></div>
+            <span class="bar-row-value">$8.5T</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-row-label">Corporate tax reforms</span>
+            <div class="bar-track"><div class="bar-fill" style="width: 35.5%;"></div></div>
+            <span class="bar-row-value">$5.4T</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-row-label">Emergency spending rules</span>
+            <div class="bar-track"><div class="bar-fill" style="width: 24.3%;"></div></div>
+            <span class="bar-row-value">$3.7T</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-row-label">Investment-income tax, S-corp/partnership</span>
+            <div class="bar-track"><div class="bar-fill" style="width: 13.8%;"></div></div>
+            <span class="bar-row-value">$2.1T</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-row-label">Financial transaction tax</span>
+            <div class="bar-track"><div class="bar-fill" style="width: 13.8%;"></div></div>
+            <span class="bar-row-value">$2.1T</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-row-label">Drug price negotiation</span>
+            <div class="bar-track"><div class="bar-fill" style="width: 11.2%;"></div></div>
+            <span class="bar-row-value">$1.7T</span>
+          </div>
+        </div>
+        <p class="chart-caption">Largest levers from our proposal; the full list is in the workbook.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE RESULT -->
+  <section class="section" id="result">
+    <div class="section-inner">
+      <h2 class="theme-heading"><span class="plain">The </span><span class="accent">Result</span></h2>
+
+      <div class="result-compare">
+        <div class="result-row">
+          <div class="result-row-top">
+            <span class="result-row-label">Baseline (no changes)</span>
+            <span class="result-row-value">176%</span>
+          </div>
+          <div class="result-track">
+            <div class="result-fill" style="width: 88%;"></div>
+            <div class="result-target-line" style="left: 47.5%;">
+              <span class="result-target-label" style="left: 0;">Target: ~95%</span>
+            </div>
+          </div>
+        </div>
+        <div class="result-row is-after">
+          <div class="result-row-top">
+            <span class="result-row-label">After Our Reforms</span>
+            <span class="result-row-value">~95%</span>
+          </div>
+          <div class="result-track">
+            <div class="result-fill" style="width: 47.6%;"></div>
+          </div>
+        </div>
+      </div>
+
+      <p class="result-note">Debt-to-GDP lands at about 95% (95.17% against a 95% goal) — essentially at
+        target. In total, the plan reduces the 30-year <span class="term" tabindex="0" data-tip="The gap between what the government spends and what it collects in a single year; deficits add to total debt.">deficit</span>
+        by roughly $74 trillion — about $36T from new revenue and $38T from spending cuts.</p>
+    </div>
+  </section>
+
+  <!-- MY ROLE -->
+  <section class="section alt" id="my-role">
+    <div class="section-inner">
+      <h2 class="theme-heading"><span class="plain">My </span><span class="accent">Role</span></h2>
+      <p class="placeholder-box">[FILL IN: 2–3 sentences on what you personally built — e.g. which sheets
+        you owned, how the scenario toggle works, or how the tax/spending levers link into the debt
+        roll-forward.]</p>
+      <p class="role-note">How to read the workbook: start with the Dashboard sheet — the other sheets
+        feed it.</p>
+    </div>
+  </section>
+
+  <!-- LIMITS & NEXT STEPS -->
+  <section class="section" id="limits">
+    <div class="section-inner">
+      <h2 class="theme-heading"><span class="plain">Limits &amp; </span><span class="accent">Next Steps</span></h2>
+
+      <div class="limits-list">
+        <div class="limits-item">The model uses a simplified scoring method for each policy lever.</div>
+        <div class="limits-item">It doesn't yet include the interest savings that come from carrying less
+          debt.</div>
+        <div class="limits-item">It doesn't test political feasibility — only the fiscal math.</div>
+      </div>
+
+      <p class="next-step">Next step: rebuild the debt roll-forward year by year with interest feedback.</p>
+
+      <div class="skills-strip">
+        <span class="fact-label">Skills Used</span>
+        <div class="project-pills">
+          <span class="tool-pill">Excel Financial Modeling</span>
+          <span class="tool-pill">Scenario Toggle</span>
+          <span class="tool-pill">CBO Data Integration</span>
+          <span class="tool-pill">Fiscal Multipliers</span>
+          <span class="tool-pill">Multi-Sheet Linking</span>
+        </div>
+      </div>
+
+      <div class="case-links">
+        <a href="assets/FISCAL_Financial_Modelling.xlsx" class="btn btn-primary" target="_blank" rel="noopener">Download the Workbook (.xlsx)</a>
+        <a href="assets/Team628_FiscalChallenge26.pdf" class="btn btn-ghost" target="_blank" rel="noopener">View the Full Deck (PDF)</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="case-footer-nav">
+    <a href="index.html#projects" class="case-back">← Back to Projects</a>
+  </div>
+
+</main>
+
+<footer class="footer">
+  <p>&copy; <span id="year"></span> Avelyn Nguyen. Built with care.</p>
+</footer>
+
+<!-- Lightbox for the model screenshots -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-hidden="true">
+  <button class="lightbox-close" id="lightboxClose" aria-label="Close enlarged image">✕</button>
+  <img id="lightboxImg" src="" alt="">
+</div>
+
+<script src="script.js"></script>
+<script>
+  (function () {
+    // Jargon tooltips: tap/click toggles on touch devices, hover/focus works for mouse & keyboard
+    var terms = document.querySelectorAll('.term');
+    terms.forEach(function (term) {
+      term.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var isOpen = term.classList.contains('tip-open');
+        terms.forEach(function (t) { t.classList.remove('tip-open'); });
+        if (!isOpen) term.classList.add('tip-open');
+      });
+    });
+    document.addEventListener('click', function () {
+      terms.forEach(function (t) { t.classList.remove('tip-open'); });
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') terms.forEach(function (t) { t.classList.remove('tip-open'); });
+    });
+
+    // Lightbox for model screenshots
+    var lightbox = document.getElementById('lightbox');
+    var lightboxImg = document.getElementById('lightboxImg');
+    var lightboxClose = document.getElementById('lightboxClose');
+    var shots = document.querySelectorAll('.model-shot-scroll img');
+
+    function openLightbox(img) {
+      lightboxImg.src = img.src;
+      lightboxImg.alt = img.alt;
+      lightbox.classList.add('is-open');
+      lightbox.setAttribute('aria-hidden', 'false');
+      lightboxClose.focus();
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('is-open');
+      lightbox.setAttribute('aria-hidden', 'true');
+      lightboxImg.src = '';
+    }
+
+    shots.forEach(function (img) {
+      img.addEventListener('click', function () { openLightbox(img); });
+      img.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openLightbox(img);
+        }
+      });
+    });
+
+    lightboxClose.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', function (e) {
+      if (e.target === lightbox) closeLightbox();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && lightbox.classList.contains('is-open')) closeLightbox();
+    });
+  })();
+</script>
+</body>
+</html>

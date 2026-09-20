@@ -208,9 +208,18 @@
   <section class="section alt" id="projects">
     <div class="section-inner">
       <p class="section-label">03 — Projects &amp; Case Competitions</p>
+
+      <div class="filter-bar" role="tablist" aria-label="Filter projects by category">
+        <button class="filter-pill active" data-filter="all" type="button">All</button>
+        <button class="filter-pill" data-filter="data" type="button">Data</button>
+        <button class="filter-pill" data-filter="strategy" type="button">Strategy &amp; Consulting</button>
+        <button class="filter-pill" data-filter="financial" type="button">Financial Modeling &amp; Equity Valuation</button>
+        <button class="filter-pill" data-filter="actuarial" type="button">Actuarial</button>
+      </div>
+
       <div class="projects-grid">
 
-        <article class="project-card">
+        <article class="project-card" data-category="data">
           <div class="project-card-top">
             <span class="project-tag">SQL &amp; Data Analysis</span>
             <a class="project-arrow" href="xmas-sales-analysis.html" aria-label="View European Holiday Sales — SQL Analysis">↗</a>
@@ -225,10 +234,10 @@
           </div>
         </article>
 
-        <article class="project-card">
+        <article class="project-card" data-category="financial">
           <div class="project-card-top">
             <span class="project-tag">Fiscal Policy</span>
-            <a class="project-arrow" href="assets/Team628_FiscalChallenge26.pdf" target="_blank" rel="noopener" aria-label="View Fiscal Challenge 2026 deck">↗</a>
+            <a class="project-arrow" href="fiscal-challenge.html" aria-label="View Fiscal Challenge 2026 project page">↗</a>
           </div>
           <h3>Fiscal Challenge 2026</h3>
           <p class="project-result">Team 628 · National fiscal policy competition</p>
@@ -240,7 +249,7 @@
           <a class="project-secondary-link" href="assets/FISCAL_Financial_Modelling.xlsx" target="_blank" rel="noopener">Financial Model ↗</a>
         </article>
 
-        <article class="project-card">
+        <article class="project-card" data-category="strategy">
           <div class="project-card-top">
             <span class="project-tag">Case Competition</span>
             <a class="project-arrow" href="assets/CHB_Case_2025.pdf" target="_blank" rel="noopener" aria-label="View Bentley Health & Business Case Competition deck">↗</a>
@@ -254,7 +263,7 @@
           </div>
         </article>
 
-        <article class="project-card">
+        <article class="project-card" data-category="financial">
           <div class="project-card-top">
             <span class="project-tag">Equity Research</span>
             <a class="project-arrow" href="assets/FI118_Group6_Bloomberg_Project.pdf" target="_blank" rel="noopener" aria-label="View Coca-Cola Equity Research Report">↗</a>
@@ -268,7 +277,7 @@
           </div>
         </article>
 
-        <article class="project-card">
+        <article class="project-card" data-category="actuarial">
           <div class="project-card-top">
             <span class="project-tag">Actuarial Science</span>
           </div>
@@ -286,7 +295,7 @@
             not-for-distribution by Travelers.</p>
         </article>
 
-        <article class="project-card">
+        <article class="project-card" data-category="strategy">
           <div class="project-card-top">
             <span class="project-tag">Nonprofit Consulting</span>
             <a class="project-arrow" href="assets/HoldingHandCase.pdf" target="_blank" rel="noopener" aria-label="View Mission Possible deck">↗</a>
@@ -304,7 +313,7 @@
             branding recommendations for a newly established organization.</p>
         </article>
 
-        <article class="project-card">
+        <article class="project-card" data-category="financial">
           <div class="project-card-top">
             <span class="project-tag">Equity Pitch</span>
             <a class="project-arrow" href="assets/Lemonade_Pitch.pdf" target="_blank" rel="noopener" aria-label="View NABA Business Bowl pitch">↗</a>

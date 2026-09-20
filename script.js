@@ -32,3 +32,20 @@ if (sections.length && 'IntersectionObserver' in window) {
 
   sections.forEach(section => observer.observe(section));
 }
+
+// Projects filter: show/hide cards by category
+const filterPills = document.querySelectorAll('.filter-pill');
+const projectCards = document.querySelectorAll('.project-card[data-category]');
+if (filterPills.length && projectCards.length) {
+  filterPills.forEach(pill => {
+    pill.addEventListener('click', () => {
+      filterPills.forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+      const filter = pill.dataset.filter;
+      projectCards.forEach(card => {
+        const show = filter === 'all' || card.dataset.category === filter;
+        card.classList.toggle('is-hidden', !show);
+      });
+    });
+  });
+}

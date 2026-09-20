@@ -524,11 +524,44 @@ img { max-width: 100%; display: block; }
 }
 
 /* PROJECTS */
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 28px 0 32px;
+}
+
+.filter-pill {
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--muted);
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.filter-pill:hover {
+  color: var(--navy);
+  border-color: var(--gold-light);
+}
+
+.filter-pill.active {
+  color: var(--navy);
+  background: rgba(185, 141, 62, 0.12);
+  border-color: var(--gold);
+}
+
 .projects-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
   gap: 16px;
 }
+
+.project-card.is-hidden { display: none; }
 
 .project-card {
   position: relative;
