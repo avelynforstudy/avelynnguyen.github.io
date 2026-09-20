@@ -571,13 +571,24 @@ img { max-width: 100%; display: block; }
 
 .project-arrow {
   flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
   font-size: 0.85rem;
-  color: var(--muted);
-  transition: transform 0.2s ease, color 0.2s ease;
+  color: var(--navy);
+  text-decoration: none;
+  transition: transform 0.2s ease, color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
 }
 
+.project-arrow:hover,
 .project-card:hover .project-arrow {
   color: var(--gold);
+  border-color: var(--gold-light);
+  background: rgba(185, 141, 62, 0.1);
   transform: translate(2px, -2px);
 }
 
@@ -630,16 +641,7 @@ img { max-width: 100%; display: block; }
   margin: 12px 0 0;
 }
 
-.project-card-overlay {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  border-radius: inherit;
-}
-
 .project-secondary-link {
-  position: relative;
-  z-index: 2;
   display: inline-block;
   margin-top: 12px;
   font-size: 0.74rem;
