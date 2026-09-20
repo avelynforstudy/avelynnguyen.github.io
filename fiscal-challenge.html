@@ -453,19 +453,7 @@
     max-width: 660px;
   }
 
-  /* My role + limits */
-  .placeholder-box {
-    background: rgba(185, 141, 62, 0.08);
-    border: 1px dashed var(--gold-light);
-    border-radius: var(--radius);
-    padding: 16px 18px;
-    font-size: 0.86rem;
-    line-height: 1.6;
-    color: var(--muted);
-    font-style: italic;
-    margin: 0 0 18px;
-  }
-
+  /* Limits */
   .role-note {
     font-size: 0.82rem;
     line-height: 1.6;
@@ -493,13 +481,6 @@
     color: var(--ink);
   }
   .section.alt .limits-item { background: var(--paper); }
-
-  .next-step {
-    font-size: 0.86rem;
-    color: var(--navy);
-    font-weight: 600;
-    margin: 0;
-  }
 
   /* Skills + links */
   .skills-strip { margin-top: 32px; }
@@ -779,22 +760,10 @@
     </div>
   </section>
 
-  <!-- MY ROLE -->
-  <section class="section alt" id="my-role">
+  <!-- LIMITS -->
+  <section class="section alt" id="limits">
     <div class="section-inner">
-      <h2 class="theme-heading"><span class="plain">My </span><span class="accent">Role</span></h2>
-      <p class="placeholder-box">[FILL IN: 2–3 sentences on what you personally built — e.g. which sheets
-        you owned, how the scenario toggle works, or how the tax/spending levers link into the debt
-        roll-forward.]</p>
-      <p class="role-note">How to read the workbook: start with the Dashboard sheet — the other sheets
-        feed it.</p>
-    </div>
-  </section>
-
-  <!-- LIMITS & NEXT STEPS -->
-  <section class="section" id="limits">
-    <div class="section-inner">
-      <h2 class="theme-heading"><span class="plain">Limits &amp; </span><span class="accent">Next Steps</span></h2>
+      <h2 class="theme-heading"><span class="plain">Limits</span></h2>
 
       <div class="limits-list">
         <div class="limits-item">The model uses a simplified scoring method for each policy lever.</div>
@@ -802,8 +771,6 @@
           debt.</div>
         <div class="limits-item">It doesn't test political feasibility — only the fiscal math.</div>
       </div>
-
-      <p class="next-step">Next step: rebuild the debt roll-forward year by year with interest feedback.</p>
 
       <div class="skills-strip">
         <span class="fact-label">Skills Used</span>
@@ -820,6 +787,8 @@
         <a href="assets/FISCAL_Financial_Modelling.xlsx" class="btn btn-primary" target="_blank" rel="noopener">Download the Workbook (.xlsx)</a>
         <a href="assets/Team628_FiscalChallenge26.pdf" class="btn btn-ghost" target="_blank" rel="noopener">View the Full Deck (PDF)</a>
       </div>
+      <p class="role-note" style="margin-top: 14px;">How to read the workbook: start with the Dashboard
+        sheet — the other sheets feed it.</p>
     </div>
   </section>
 

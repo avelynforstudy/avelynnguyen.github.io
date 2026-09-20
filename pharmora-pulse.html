@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Pharmora P.U.L.S.E.: Reviving a Pharma Company's Growth | Avelyn Nguyen</title>
+<meta name="description" content="A visual walkthrough of Team J-LAMB's P.U.L.S.E. strategy for Pharmora — 1st Place, Bentley Health & Business Case Competition 2025." />
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+  /* ---- Page-specific additions (kept separate from styles.css on purpose,
+       so this page can be dropped in without touching the shared stylesheet).
+       Deliberately a different layout from the Fiscal Challenge page: a
+       screenshot-driven "case walkthrough" rather than a stat/chart page. ---- */
+
+  .case-header {
+    padding: 48px 32px 0;
+    max-width: 1080px;
+    margin: 0 auto;
+  }
+
+  .case-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 7px 14px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    transition: border-color 0.2s ease, color 0.2s ease;
+  }
+  .case-back:hover { color: var(--navy); border-color: var(--gold-light); }
+
+  .case-crumb {
+    margin: 20px 0 0;
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+  .case-crumb span { color: var(--navy); font-weight: 600; }
+
+  /* Compact header */
+  .pulse-hero {
+    padding: 24px 32px 36px;
+    max-width: 1080px;
+    margin: 0 auto;
+  }
+
+  .pulse-badge {
+    display: inline-block;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 700;
+    color: var(--gold);
+    background: rgba(185, 141, 62, 0.1);
+    border: 1px solid rgba(185, 141, 62, 0.28);
+    padding: 6px 14px;
+    border-radius: 999px;
+    margin-bottom: 18px;
+  }
+
+  .pulse-hero h1 {
+    font-family: var(--serif);
+    font-size: clamp(1.7rem, 3.6vw, 2.5rem);
+    font-weight: 600;
+    color: var(--navy);
+    margin: 0 0 12px;
+    letter-spacing: -0.01em;
+    max-width: 760px;
+  }
+
+  .pulse-hero-sub {
+    font-size: 0.94rem;
+    line-height: 1.6;
+    color: var(--ink);
+    max-width: 620px;
+    margin: 0;
+  }
+
+  /* Chapter chip nav */
+  .chapter-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 28px;
+  }
+
+  .chapter-chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    height: 32px;
+    padding: 0 10px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: var(--paper);
+    color: var(--muted);
+    font-size: 0.74rem;
+    font-weight: 700;
+    text-decoration: none;
+    font-variant-numeric: tabular-nums;
+    transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+  }
+  .chapter-chip:hover {
+    border-color: var(--gold-light);
+    color: var(--navy);
+    background: rgba(185, 141, 62, 0.08);
+  }
+
+  /* Chapters */
+  .chapter {
+    padding: 56px 32px;
+    max-width: 1080px;
+    margin: 0 auto;
+    scroll-margin-top: 24px;
+  }
+
+  .chapter-row {
+    display: flex;
+    align-items: center;
+    gap: 44px;
+  }
+  .chapter-row.is-reversed { flex-direction: row-reverse; }
+
+  .chapter-media {
+    flex: 0 0 58%;
+    max-width: 58%;
+  }
+  .chapter-copy {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .chapter-number {
+    display: inline-block;
+    font-family: var(--serif);
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 0.08em;
+    margin-bottom: 10px;
+  }
+
+  .chapter-copy h2 {
+    font-family: var(--serif);
+    font-size: clamp(1.2rem, 2.4vw, 1.5rem);
+    font-weight: 600;
+    color: var(--navy);
+    margin: 0 0 14px;
+    line-height: 1.25;
+  }
+
+  .chapter-copy p {
+    font-size: 0.88rem;
+    line-height: 1.65;
+    color: var(--ink);
+    margin: 0 0 12px;
+  }
+  .chapter-copy p:last-child { margin-bottom: 0; }
+  .chapter-copy p strong {
+    color: var(--navy);
+    font-weight: 700;
+  }
+
+  .chapter-shot {
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--paper);
+  }
+  .section.alt .chapter-shot { background: var(--paper); }
+
+  .chapter-shot img {
+    display: block;
+    width: 100%;
+    height: auto;
+    cursor: zoom-in;
+  }
+
+  .zoom-hint {
+    display: inline-block;
+    margin-top: 8px;
+    font-size: 0.72rem;
+    color: var(--gold);
+    font-weight: 600;
+  }
+
+  @media (max-width: 860px) {
+    .chapter-row, .chapter-row.is-reversed {
+      flex-direction: column;
+      gap: 20px;
+    }
+    .chapter-media, .chapter-copy {
+      flex: 1 1 auto;
+      max-width: 100%;
+    }
+  }
+
+  /* Lightbox */
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 22, 38, 0.88);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+    z-index: 200;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease;
+  }
+  .lightbox.is-open { opacity: 1; visibility: visible; }
+
+  .lightbox img {
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 8px;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+  }
+
+  .lightbox-close {
+    position: absolute;
+    top: 24px;
+    right: 28px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+  .lightbox-close:hover { background: rgba(255, 255, 255, 0.2); }
+
+  /* Footer strip */
+  .pulse-footer {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 8px 32px 8px;
+  }
+
+  .skills-strip .fact-label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+  }
+
+  .case-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 20px;
+  }
+
+  .case-footer-nav {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 48px 32px 96px;
+  }
+</style>
+</head>
+<body>
+<div class="noise"></div>
+
+<header class="nav" id="top">
+  <div class="nav-inner">
+    <a href="index.html#top" class="nav-brand">
+      <img src="assets/images/logo.png" alt="AN logo" class="nav-logo">
+      <span>Avelyn Nguyen</span>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html#about">About</a>
+      <a href="index.html#experience">Experience</a>
+      <a href="index.html#projects" class="active">Projects</a>
+      <a href="index.html#skills">Skills</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <div class="case-header">
+    <a href="index.html#projects" class="case-back">← Projects</a>
+    <p class="case-crumb">Projects / <span>Pharmora P.U.L.S.E.</span></p>
+  </div>
+
+  <section class="pulse-hero">
+    <span class="pulse-badge">1st Place · Bentley Health &amp; Business Case Competition 2025</span>
+    <h1>Pharmora P.U.L.S.E.: Reviving a Pharma Company's Growth</h1>
+    <p class="pulse-hero-sub">A five-part strategy to win back a drug maker's growth, shown slide by slide.</p>
+
+    <nav class="chapter-chips" aria-label="Jump to chapter">
+      <a href="#ch01" class="chapter-chip">01</a>
+      <a href="#ch02" class="chapter-chip">02</a>
+      <a href="#ch03" class="chapter-chip">03</a>
+      <a href="#ch04" class="chapter-chip">04</a>
+      <a href="#ch05" class="chapter-chip">05</a>
+      <a href="#ch06" class="chapter-chip">06</a>
+      <a href="#ch07" class="chapter-chip">07</a>
+    </nav>
+  </section>
+
+  <!-- CHAPTER 01 — The case on one page -->
+  <section class="chapter section" id="ch01">
+    <div class="chapter-row">
+      <figure class="chapter-media">
+        <div class="chapter-shot">
+          <img src="assets/images/pharmora-01.png"
+               tabindex="0" role="button"
+               alt="Executive summary slide: Pharmora's situation, the case question, the P.U.L.S.E. strategy, and projected impact"
+               aria-label="Click to enlarge the executive summary slide">
+        </div>
+        <span class="zoom-hint">Click to enlarge</span>
+      </figure>
+      <div class="chapter-copy">
+        <span class="chapter-number">01</span>
+        <h2>The Case, in One Page</h2>
+        <p><strong>What you're looking at:</strong> The whole case in one view. Pharmora's revenue growth fell
+          2.33% year over year; we asked how it could recover and stay competitive, and answered with five
+          moves called P.U.L.S.E.</p>
+        <p><strong>Why it matters:</strong> Our projections estimated up to 47% higher net revenue, 2–3% lower
+          operating expenses, and 50%+ more customers we could reach.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHAPTER 02 — The diagnosis -->
+  <section class="chapter section alt" id="ch02">
+    <div class="chapter-row is-reversed">
+      <figure class="chapter-media">
+        <div class="chapter-shot">
+          <img src="assets/images/pharmora-02.png"
+               tabindex="0" role="button"
+               alt="Bar chart comparing Pharmora's expenses to the pharma industry as a percent of revenue, across COGS, R&D, SG&A, and marketing"
+               aria-label="Click to enlarge the expense breakdown chart">
+        </div>
+        <span class="zoom-hint">Click to enlarge</span>
+      </figure>
+      <div class="chapter-copy">
+        <span class="chapter-number">02</span>
+        <h2>The Diagnosis</h2>
+        <p><strong>What you're looking at:</strong> Pharmora's spending compared with the industry, as a share
+          of revenue. Manufacturing costs (COGS, the cost of making the drugs) are about 40% of revenue, while
+          spending on R&amp;D and marketing sits below industry norms.</p>
+        <p><strong>Why it matters:</strong> The company was overspending on making and running things, and
+          underspending on innovation and reaching customers.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHAPTER 03 — Who to reach first -->
+  <section class="chapter section" id="ch03">
+    <div class="chapter-row">
+      <figure class="chapter-media">
+        <div class="chapter-shot">
+          <img src="assets/images/pharmora-03.png"
+               tabindex="0" role="button"
+               alt="Target market slide showing the split between doctor-directed, collaborative, and patient-directed prescribing decisions, with supporting HCP and patient statistics"
+               aria-label="Click to enlarge the target market slide">
+        </div>
+        <span class="zoom-hint">Click to enlarge</span>
+      </figure>
+      <div class="chapter-copy">
+        <span class="chapter-number">03</span>
+        <h2>Who to Reach First</h2>
+        <p><strong>What you're looking at:</strong> In 57% of prescription decisions the doctor decides, 38%
+          are shared with the patient, and 5% are patient-led.</p>
+        <p><strong>Why it matters:</strong> Doctors drive prescribing, so our outreach targets healthcare
+          professionals first, then patients.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHAPTER 04 — The strategy -->
+  <section class="chapter section alt" id="ch04">
+    <div class="chapter-row is-reversed">
+      <figure class="chapter-media">
+        <div class="chapter-shot">
+          <img src="assets/images/pharmora-04.png"
+               tabindex="0" role="button"
+               alt="P.U.L.S.E. framework slide mapping five strategic questions to five moves: Position, Utilize, Launch, Serve, Enforce"
+               aria-label="Click to enlarge the P.U.L.S.E. framework slide">
+        </div>
+        <span class="zoom-hint">Click to enlarge</span>
+      </figure>
+      <div class="chapter-copy">
+        <span class="chapter-number">04</span>
+        <h2>The Strategy</h2>
+        <p><strong>What you're looking at:</strong> Five questions turned into five moves: Position in targeted
+          markets, Utilize distribution channels, Launch community campaigns, Serve patients, Enforce AI.</p>
+        <p><strong>Why it matters:</strong> The acronym ties every recommendation back to one clear plan.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHAPTER 05 — Using AI to cut R&D cost -->
+  <section class="chapter section" id="ch05">
+    <div class="chapter-row">
+      <figure class="chapter-media">
+        <div class="chapter-shot">
+          <img src="assets/images/pharmora-05.png"
+               tabindex="0" role="button"
+               alt="Slide on partnering with TriNetX, showing clinical trial phases and recruitment cost and dropout statistics"
+               aria-label="Click to enlarge the TriNetX partnership slide">
+        </div>
+        <span class="zoom-hint">Click to enlarge</span>
+      </figure>
+      <div class="chapter-copy">
+        <span class="chapter-number">05</span>
+        <h2>Using AI to Cut R&amp;D Cost</h2>
+        <p><strong>What you're looking at:</strong> Clinical trials are slow and costly. The slide cites that
+          recruitment is 32% of testing cost, 40% of recruits drop out, and 80% of trials miss recruiting
+          targets. We proposed partnering with a data network of 120+ health organizations to find patients
+          faster.</p>
+        <p><strong>Why it matters:</strong> Faster, cheaper recruitment lowers R&amp;D spending and speeds up
+          new drugs.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHAPTER 06 — Projected financial impact -->
+  <section class="chapter section alt" id="ch06">
+    <div class="chapter-row is-reversed">
+      <figure class="chapter-media">
+        <div class="chapter-shot">
+          <img src="assets/images/pharmora-06.png"
+               tabindex="0" role="button"
+               alt="Table of estimated five-year percent changes across cardiovascular revenue, endocrinology revenue, COGS, SG&A, R&D expense, and marketing expense"
+               aria-label="Click to enlarge the five-year financial impact table">
+        </div>
+        <span class="zoom-hint">Click to enlarge</span>
+      </figure>
+      <div class="chapter-copy">
+        <span class="chapter-number">06</span>
+        <h2>Projected Financial Impact</h2>
+        <p><strong>What you're looking at:</strong> Estimated five-year changes by line: cardiovascular revenue
+          +40% to +60%, endocrinology revenue +25% to +40%, COGS &minus;8% to &minus;15%, R&amp;D expense
+          &minus;20% to &minus;30%. SG&amp;A rises 5–12% and marketing 10–20%.</p>
+        <p><strong>Why it matters:</strong> We invest more in digital and direct-to-consumer marketing and
+          services up front, and offset it with AI-driven savings. These are directional estimates from
+          industry benchmark sources, not audited forecasts.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHAPTER 07 — The rollout and its risks -->
+  <section class="chapter section" id="ch07">
+    <div class="chapter-row">
+      <figure class="chapter-media">
+        <div class="chapter-shot">
+          <img src="assets/images/pharmora-07.png"
+               tabindex="0" role="button"
+               alt="2026–2030 rollout timeline across digital marketing, direct-to-consumer model, product launches, therapy-as-a-service, TriNetX partnership, and AI manufacturing integration, with evaluation checkpoints"
+               aria-label="Click to enlarge the rollout timeline slide">
+        </div>
+        <span class="zoom-hint">Click to enlarge</span>
+      </figure>
+      <div class="chapter-copy">
+        <span class="chapter-number">07</span>
+        <h2>The Rollout and Its Risks</h2>
+        <p><strong>What you're looking at:</strong> A five-year timeline with evaluation checkpoints, starting
+          with regulatory compliance before direct-to-consumer sales. Alongside it, we mapped the main risks —
+          regulation, patient data privacy, reputation, and over-reliance on tech partners — each with a
+          mitigation.</p>
+        <p><strong>Why it matters:</strong> The plan sequences the work and plans for what could go wrong.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER STRIP -->
+  <div class="pulse-footer">
+    <div class="skills-strip">
+      <span class="fact-label">Skills Used</span>
+      <div class="project-pills">
+        <span class="tool-pill">Strategy Consulting</span>
+        <span class="tool-pill">Financial Benchmarking</span>
+        <span class="tool-pill">Market Analysis</span>
+        <span class="tool-pill">Pharma Industry Research</span>
+        <span class="tool-pill">Presentation Design</span>
+      </div>
+    </div>
+    <div class="case-links">
+      <a href="assets/CHB_Case_2025.pdf" class="btn btn-primary" target="_blank" rel="noopener">View the Full Deck (PDF)</a>
+    </div>
+  </div>
+
+  <div class="case-footer-nav">
+    <a href="index.html#projects" class="case-back">← Back to Projects</a>
+  </div>
+
+</main>
+
+<footer class="footer">
+  <p>&copy; <span id="year"></span> Avelyn Nguyen. Built with care.</p>
+</footer>
+
+<!-- Lightbox for chapter screenshots -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-hidden="true">
+  <button class="lightbox-close" id="lightboxClose" aria-label="Close enlarged image">✕</button>
+  <img id="lightboxImg" src="" alt="">
+</div>
+
+<script src="script.js"></script>
+<script>
+  (function () {
+    // Lightbox for chapter screenshots
+    var lightbox = document.getElementById('lightbox');
+    var lightboxImg = document.getElementById('lightboxImg');
+    var lightboxClose = document.getElementById('lightboxClose');
+    var shots = document.querySelectorAll('.chapter-shot img');
+
+    function openLightbox(img) {
+      lightboxImg.src = img.src;
+      lightboxImg.alt = img.alt;
+      lightbox.classList.add('is-open');
+      lightbox.setAttribute('aria-hidden', 'false');
+      lightboxClose.focus();
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('is-open');
+      lightbox.setAttribute('aria-hidden', 'true');
+      lightboxImg.src = '';
+    }
+
+    shots.forEach(function (img) {
+      img.addEventListener('click', function () { openLightbox(img); });
+      img.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openLightbox(img);
+        }
+      });
+    });
+
+    lightboxClose.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', function (e) {
+      if (e.target === lightbox) closeLightbox();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && lightbox.classList.contains('is-open')) closeLightbox();
+    });
+  })();
+</script>
+</body>
+</html>
