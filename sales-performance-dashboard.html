@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sales Performance Dashboard: Analyzing Supermarket Revenue &amp; Performance | Avelyn Nguyen</title>
+<meta name="description" content="Turning three years of transaction data from a 30-store supermarket chain into pivot tables, scorecards, and a dashboard for tracking revenue and performance." />
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+  /* ---- Page-specific additions (kept separate from styles.css on purpose,
+       so this page can be dropped in without touching the shared stylesheet).
+       Deliberately the simplest of the three subpages: full-width screenshots
+       with a short caption underneath, no side-by-side cards or tooltips. ---- */
+
+  .case-header {
+    padding: 48px 32px 0;
+    max-width: 920px;
+    margin: 0 auto;
+  }
+
+  .case-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 7px 14px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    transition: border-color 0.2s ease, color 0.2s ease;
+  }
+  .case-back:hover { color: var(--navy); border-color: var(--gold-light); }
+
+  .case-crumb {
+    margin: 20px 0 0;
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+  .case-crumb span { color: var(--navy); font-weight: 600; }
+
+  .case-hero {
+    padding: 24px 32px 48px;
+    max-width: 920px;
+    margin: 0 auto;
+  }
+
+  .case-tag {
+    display: inline-block;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 700;
+    color: var(--gold);
+    background: rgba(185, 141, 62, 0.1);
+    padding: 5px 12px;
+    border-radius: 999px;
+    margin-bottom: 20px;
+  }
+
+  .case-hero h1 {
+    font-family: var(--serif);
+    font-size: clamp(1.7rem, 3.8vw, 2.4rem);
+    font-weight: 600;
+    color: var(--navy);
+    margin: 0 0 14px;
+    letter-spacing: -0.01em;
+    max-width: 680px;
+  }
+
+  .case-hero-sub {
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: var(--ink);
+    max-width: 600px;
+    margin: 0 0 10px;
+  }
+
+  .case-meta {
+    font-size: 0.8rem;
+    color: var(--muted);
+    font-weight: 500;
+  }
+
+  /* Screenshot blocks */
+  .kpim-shot-section {
+    padding: 44px 32px;
+    max-width: 920px;
+    margin: 0 auto;
+  }
+
+  .kpim-shot-label {
+    display: inline-block;
+    font-family: var(--serif);
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 0.06em;
+    margin-bottom: 10px;
+  }
+
+  .kpim-shot-section h2 {
+    font-family: var(--serif);
+    font-size: clamp(1.1rem, 2.2vw, 1.35rem);
+    font-weight: 600;
+    color: var(--navy);
+    margin: 0 0 14px;
+  }
+
+  .kpim-shot {
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow-x: auto;
+    background: var(--paper);
+    margin-bottom: 14px;
+  }
+  .section.alt .kpim-shot { background: var(--paper); }
+
+  .kpim-shot img {
+    display: block;
+    width: 100%;
+    height: auto;
+    cursor: zoom-in;
+  }
+
+  @media (max-width: 720px) {
+    .kpim-shot img { width: 900px; max-width: none; }
+  }
+
+  .kpim-caption {
+    font-size: 0.88rem;
+    line-height: 1.65;
+    color: var(--ink);
+    max-width: 700px;
+    margin: 0;
+  }
+
+  .zoom-hint {
+    display: inline-block;
+    margin-top: 4px;
+    margin-bottom: 12px;
+    font-size: 0.72rem;
+    color: var(--gold);
+    font-weight: 600;
+  }
+
+  /* Lightbox */
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 22, 38, 0.88);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+    z-index: 200;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease;
+  }
+  .lightbox.is-open { opacity: 1; visibility: visible; }
+
+  .lightbox img {
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 8px;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+  }
+
+  .lightbox-close {
+    position: absolute;
+    top: 24px;
+    right: 28px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+  .lightbox-close:hover { background: rgba(255, 255, 255, 0.2); }
+
+  /* Footer strip */
+  .skills-strip { max-width: 920px; margin: 8px auto 0; padding: 0 32px; }
+  .skills-strip .fact-label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+  }
+
+  .case-footer-nav {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 48px 32px 96px;
+  }
+</style>
+</head>
+<body>
+<div class="noise"></div>
+
+<header class="nav" id="top">
+  <div class="nav-inner">
+    <a href="index.html#top" class="nav-brand">
+      <img src="assets/images/logo.png" alt="AN logo" class="nav-logo">
+      <span>Avelyn Nguyen</span>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html#about">About</a>
+      <a href="index.html#experience">Experience</a>
+      <a href="index.html#projects" class="active">Projects</a>
+      <a href="index.html#skills">Skills</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <div class="case-header">
+    <a href="index.html#projects" class="case-back">← Projects</a>
+    <p class="case-crumb">Projects / <span>Sales Performance Dashboard</span></p>
+  </div>
+
+  <section class="case-hero">
+    <div class="case-tag">Data Analytics</div>
+    <h1>Sales Performance Dashboard: Analyzing Supermarket Revenue &amp; Performance</h1>
+    <p class="case-hero-sub">Turning three years of transaction data from a 30-store supermarket chain into
+      pivot tables, scorecards, and a dashboard that managers and leadership could actually use.</p>
+    <p class="case-meta">KPIM Mart, Hanoi · Excel &amp; Power Query</p>
+  </section>
+
+  <!-- SCREENSHOT 1 -->
+  <section class="kpim-shot-section section">
+    <span class="kpim-shot-label">01</span>
+    <h2>Revenue by Store, 2020–2022</h2>
+    <div class="kpim-shot">
+      <img src="assets/images/kpim-revenue-by-store.png"
+           tabindex="0" role="button"
+           alt="Pivot table of annual revenue for 30 KPIM Mart store locations from 2020 to 2022, with a grand total row"
+           aria-label="Click to enlarge the revenue-by-store pivot table">
+    </div>
+    <span class="zoom-hint">Click to enlarge</span>
+    <p class="kpim-caption">A pivot table built from raw transaction data, breaking down annual revenue for
+      all 30 store locations. Total revenue across the chain went from about 5.07 billion ₫ in 2020 to 6.95
+      billion ₫ in 2021, then 5.90 billion ₫ in 2022 — roughly 17.9 billion ₫ over the three years.</p>
+  </section>
+
+  <!-- SCREENSHOT 2 -->
+  <section class="kpim-shot-section section alt">
+    <span class="kpim-shot-label">02</span>
+    <h2>Customer &amp; Membership Data</h2>
+    <div class="kpim-shot">
+      <img src="assets/images/kpim-customer-list.png"
+           tabindex="0" role="button"
+           alt="Cleaned customer database showing membership tier, demographics, transaction count, and lifetime profit per customer"
+           aria-label="Click to enlarge the customer membership table">
+    </div>
+    <span class="zoom-hint">Click to enlarge</span>
+    <p class="kpim-caption">A cleaned customer database — membership tier, demographics, and transaction
+      history for each shopper — that everything downstream (segmentation, the dashboard filters) was built
+      on top of.</p>
+  </section>
+
+  <!-- SCREENSHOT 3 -->
+  <section class="kpim-shot-section section">
+    <span class="kpim-shot-label">03</span>
+    <h2>Monthly Performance Analysis</h2>
+    <div class="kpim-shot">
+      <img src="assets/images/kpim-monthly-analysis.png"
+           tabindex="0" role="button"
+           alt="Table comparing each store's monthly revenue to the prior month and the same month last year, with year-to-date totals"
+           aria-label="Click to enlarge the monthly performance analysis table">
+    </div>
+    <span class="zoom-hint">Click to enlarge</span>
+    <p class="kpim-caption">A monthly sheet comparing each store's revenue to the prior month and to the same
+      month last year, with running year-to-date totals — built to make it quick to spot which locations were
+      trending up or down.</p>
+  </section>
+
+  <!-- SCREENSHOT 4 -->
+  <section class="kpim-shot-section section alt">
+    <span class="kpim-shot-label">04</span>
+    <h2>Store Scorecard vs. Target</h2>
+    <div class="kpim-shot">
+      <img src="assets/images/kpim-store-scorecard.png"
+           tabindex="0" role="button"
+           alt="Detailed scorecard rolling up store performance by manager and district, with color-coded percent-of-target achievement for each month"
+           aria-label="Click to enlarge the store scorecard table">
+    </div>
+    <span class="zoom-hint">Click to enlarge</span>
+    <p class="kpim-caption">A scorecard rolling store performance up through district managers, with
+      color-coded percent-of-target achievement by month — the tool used to flag underperforming stores for
+      follow-up.</p>
+  </section>
+
+  <!-- SCREENSHOT 5 -->
+  <section class="kpim-shot-section section">
+    <span class="kpim-shot-label">05</span>
+    <h2>Executive Dashboard</h2>
+    <div class="kpim-shot">
+      <img src="assets/images/kpim-dashboard-overview.png"
+           tabindex="0" role="button"
+           alt="Interactive Excel dashboard with slicers for year, origin, age group, and income group, showing revenue trends, category mix, and manager and store comparisons"
+           aria-label="Click to enlarge the executive dashboard">
+    </div>
+    <span class="zoom-hint">Click to enlarge</span>
+    <p class="kpim-caption">The final interactive dashboard, built with slicers for year, product origin, age
+      group, and income group — combining revenue trends, category mix, and manager and store comparisons
+      into one view for leadership.</p>
+  </section>
+
+  <div class="skills-strip">
+    <span class="fact-label">Skills Used</span>
+    <div class="project-pills">
+      <span class="tool-pill">Excel</span>
+      <span class="tool-pill">Pivot Tables</span>
+      <span class="tool-pill">Power Query</span>
+      <span class="tool-pill">Data Cleaning</span>
+      <span class="tool-pill">Dashboard Design</span>
+    </div>
+  </div>
+
+  <div class="case-footer-nav">
+    <a href="index.html#projects" class="case-back">← Back to Projects</a>
+  </div>
+
+</main>
+
+<footer class="footer">
+  <p>&copy; <span id="year"></span> Avelyn Nguyen. Built with care.</p>
+</footer>
+
+<!-- Lightbox for screenshots -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-hidden="true">
+  <button class="lightbox-close" id="lightboxClose" aria-label="Close enlarged image">✕</button>
+  <img id="lightboxImg" src="" alt="">
+</div>
+
+<script src="script.js"></script>
+<script>
+  (function () {
+    var lightbox = document.getElementById('lightbox');
+    var lightboxImg = document.getElementById('lightboxImg');
+    var lightboxClose = document.getElementById('lightboxClose');
+    var shots = document.querySelectorAll('.kpim-shot img');
+
+    function openLightbox(img) {
+      lightboxImg.src = img.src;
+      lightboxImg.alt = img.alt;
+      lightbox.classList.add('is-open');
+      lightbox.setAttribute('aria-hidden', 'false');
+      lightboxClose.focus();
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('is-open');
+      lightbox.setAttribute('aria-hidden', 'true');
+      lightboxImg.src = '';
+    }
+
+    shots.forEach(function (img) {
+      img.addEventListener('click', function () { openLightbox(img); });
+      img.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openLightbox(img);
+        }
+      });
+    });
+
+    lightboxClose.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', function (e) {
+      if (e.target === lightbox) closeLightbox();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && lightbox.classList.contains('is-open')) closeLightbox();
+    });
+  })();
+</script>
+</body>
+</html>
